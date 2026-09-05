@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="752" height="36.9017" viewBox="0 0 752 36.9017" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="Wave" d="M752 36.9017L0 36.9017L2.39684e-06 27.5415C2.39684e-06 27.5415 87.1458 12.7905 178.208 3.62209C269.271 -5.54637 318.613 12.7905 376 12.7905C433.387 12.7905 493.01 -6.17617 574.281 2.08313C655.552 10.3424 752 29.9894 752 29.9894V36.9017Z" fill="url(#paint0_linear_0_10267)"/>
+<defs>
+<linearGradient id="paint0_linear_0_10267" x1="751.838" y1="171.048" x2="2.73394e-05" y2="171.048" gradientUnits="userSpaceOnUse">
+<stop offset="0.298365" stop-color="#5A238D"/>
+<stop offset="1" stop-color="#AA1192"/>
+</linearGradient>
+</defs>
+</svg>
