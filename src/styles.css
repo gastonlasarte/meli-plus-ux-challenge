@@ -81,6 +81,10 @@ strong { font-weight: 700; }
 .sr-only, .skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .skip-link:focus { position: fixed; top: 8px; left: 8px; z-index: 10; background: var(--surface-card); color: var(--action); padding: 12px; }
 @media (prefers-reduced-motion: no-preference) {
+  button { transition: scale 150ms ease-out; }
+  button:active:not(:disabled) { scale: 0.96; }
+  /* La fila del FAQ ocupa el ancho completo y arrastraría su separador. */
+  .faq__question:active { scale: 1; }
   .carousel__slide { transition: opacity 150ms ease; }
   .faq__question .icon { transition: transform 180ms ease-out; }
 }

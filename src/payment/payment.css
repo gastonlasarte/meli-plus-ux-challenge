@@ -26,7 +26,7 @@
 .subscription-waves__main { top: 0; height: 37px; transform: rotate(180deg); }
 .payment-methods { padding: var(--space-8) var(--space-4); }
 .payment-methods > h2 { margin-bottom: var(--space-4); text-box: trim-both cap alphabetic; }
-.method-list { background: var(--surface-card); border-radius: var(--radius-surface); box-shadow: 0 1px 1px rgb(0 0 0 / 0.12); }
+.method-list { background: var(--surface-card); border-radius: var(--radius-surface); box-shadow: var(--shadow-border); }
 .saved-method, .method-option { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-4) var(--space-3); min-height: 64px; position: relative; }
 .saved-method + .saved-method, .method-option + .method-option { border-top: 1px solid var(--border-subtle); }
 .method-icon { flex: none; display: grid; place-items: center; width: 40px; height: 32px; }
@@ -42,16 +42,21 @@
 .method-tag--alternate { background: var(--surface-sunken); color: var(--text-primary); }
 .method-actions { position: relative; flex: none; }
 .method-modify { background: transparent; border: 0; color: var(--action); padding: var(--space-2) 0; min-height: 44px; font-size: var(--text-body); }
-.method-actions__panel { position: absolute; z-index: var(--layer-menu); top: 100%; right: 0; width: 172px; padding-block: 0; background: var(--surface-card); border-radius: var(--radius-control); box-shadow: 0 4px 12px rgb(0 0 0 / 0.2); }
+.method-actions__panel { position: absolute; z-index: var(--layer-menu); top: 100%; right: 0; width: 172px; padding-block: 0; background: var(--surface-card); border-radius: var(--radius-control); box-shadow: var(--shadow-overlay); }
 .method-actions__panel button { display: block; width: 100%; min-height: 44px; padding: var(--space-3) var(--space-2); background: transparent; color: var(--text-primary); font-size: var(--text-body); text-align: start; border: 0; }
 .method-actions__panel button + button { border-top: 1px solid var(--border-subtle); }
-.add-method-row { position: relative; display: flex; align-items: center; margin-top: var(--space-4); background: var(--surface-card); border-radius: var(--radius-surface); box-shadow: 0 1px 1px rgb(0 0 0 / 0.12); }
+.add-method-row { position: relative; display: flex; align-items: center; margin-top: var(--space-4); background: var(--surface-card); border-radius: var(--radius-surface); box-shadow: var(--shadow-border); }
 .add-method { display: flex; align-items: center; gap: var(--space-2); flex: 1; min-width: 0; min-height: 64px; padding: var(--space-4) var(--space-3); background: var(--surface-card); border: 0; border-radius: var(--radius-surface); color: var(--action); font-size: var(--text-body); line-height: 1.4; font-weight: 600; text-align: start; }
 .add-method__icon { flex: none; width: 40px; height: 32px; display: grid; place-items: center; }
 .add-method-row .add-method { padding-inline-end: 0; }
 .payment-info { display: grid; place-items: center; color: var(--action); flex: none; width: var(--target-size); height: var(--target-size); border: 0; background: none; padding: var(--space-3); }
 .alternate-help { --focus-ring: var(--text-over-dark); margin-top: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); background: var(--surface-inverse); color: var(--text-over-dark); font-size: var(--text-body); line-height: 1.4; }
 .alternate-help button { border: 0; background: none; color: var(--text-over-dark); padding: var(--space-3) 0 0; min-height: 44px; font-weight: 600; }
+/* Entrada al montar; la salida es inmediata porque el nodo se desmonta. */
+.method-actions__panel, .alternate-help { transition: opacity 120ms ease-out; }
+@starting-style {
+  .method-actions__panel, .alternate-help { opacity: 0; }
+}
 .alternate-explanation { margin-top: var(--space-4); font-size: var(--text-body); line-height: 1.4; }
 .subscription-footer { padding: var(--space-4) var(--space-4) var(--space-8); border-top: 1px solid var(--border-subtle); font-size: var(--text-caption); line-height: 1.4; text-align: center; }
 .subscription-footer button { padding: 0; border: 0; background: none; color: var(--action); text-decoration: underline; }
@@ -67,7 +72,7 @@
 .method-option:first-child { border-radius: 6px 6px 0 0; }
 .method-option:last-child { border-radius: 0 0 6px 6px; }
 .method-option--principal { cursor: default; }
-.selection-new { margin-top: var(--space-4); width: 100%; box-shadow: 0 1px 1px rgb(0 0 0 / 0.12); }
+.selection-new { margin-top: var(--space-4); width: 100%; box-shadow: var(--shadow-border); }
 .selection-submit { margin-top: var(--space-6); }
 .selection-error { margin-top: var(--space-3); color: var(--danger); font-size: var(--text-body); line-height: 1.4; }
 .payment-security { display: flex; align-items: center; justify-content: center; gap: var(--space-1); padding: var(--space-4); border-top: 1px solid var(--border-subtle); font-size: var(--text-caption); }

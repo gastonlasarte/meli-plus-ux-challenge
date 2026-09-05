@@ -21,6 +21,19 @@
   --brand-violet: oklch(0.396 0.165 303.128);
   --brand-magenta: oklch(0.508 0.216 336.469);
   --subscription-gradient: linear-gradient(255.54deg, var(--brand-violet) 22.054%, var(--brand-magenta) 121.7%);
+  --shadow-border:
+    0 0 0 1px oklch(0 0 0 / 0.06),
+    0 1px 2px -1px oklch(0 0 0 / 0.06),
+    0 2px 4px 0 oklch(0 0 0 / 0.04);
+  --shadow-overlay:
+    0 0 0 1px oklch(0 0 0 / 0.06),
+    0 4px 8px -2px oklch(0 0 0 / 0.1),
+    0 8px 20px -4px oklch(0 0 0 / 0.08);
+  /* La card vive sobre la banda violeta: ahí una sombra al 6% no se ve. */
+  --shadow-raised:
+    0 1px 2px -1px oklch(0.182 0 0 / 0.3),
+    0 4px 6px -2px oklch(0.182 0 0 / 0.26),
+    0 8px 14px -4px oklch(0.182 0 0 / 0.18);
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
