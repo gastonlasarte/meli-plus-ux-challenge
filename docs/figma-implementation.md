@@ -45,6 +45,8 @@ No subscription, payment or FAQ-answer behavior is fabricated.
 
 ## Desvíos posteriores a la auditoría de interfaz
 
+Todo lo de esta sección está aprobado (2026-09-05).
+
 La landing ya no reproduce el copy del frame palabra por palabra. Toda la interfaz
 habla una sola voz —voseo argentino, el registro que ya fijaban `content.md` y
 `payment-flow.md`— porque el producto cambiaba de dialecto al pasar de la landing
@@ -58,11 +60,21 @@ a Details. Cambios de copy respecto del frame:
   `Preguntas Frecuentes` → `Preguntas frecuentes`, `3 Cuotas` → `3 cuotas`.
 - Formato numérico es-AR, coherente con el `$13.000` que ya usaba el flujo de
   pagos: `$17.90` → `$17,90`, `$9.90` → `$9,90`, `$29.00` → `$29,00`.
+- Etiqueta verbo-primero: `Nuevo medio de pago` → `Agregar un nuevo medio de pago`.
+
+Copy nuevo, que el frame no traía:
+
+- Las cuatro respuestas del FAQ (`src/data/faq.tsx`). El frame trae las preguntas
+  colapsadas y sin respuestas; se escribieron para el prototipo y son datos de
+  demostración, no condiciones contractuales.
+- “Elegir un plan no forma parte de este prototipo.”, el aviso del CTA de la landing.
 
 También se desvían del frame, por accesibilidad:
 
 - `--action` y `--success` se oscurecen hasta pasar 4.5:1 en todos sus roles.
 - Los controles sin destino se pintan como deshabilitados en lugar de a opacidad 1.
+  La excepción es `Elegir plan`: queda habilitado y explica el alcance en un toast,
+  porque es la acción principal de la landing.
 - Los tamaños de texto siguen la escala por rol de `tokens.css`; el piso es 12px.
 
 ### Iconos

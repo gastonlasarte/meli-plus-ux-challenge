@@ -3,9 +3,9 @@ import type { ReactNode } from "react";
 export type FaqEntry = { id: string; question: ReactNode; answer: ReactNode };
 
 // Las preguntas vienen del frame de Figma (nodo 40000024:493), que las trae
-// colapsadas y sin respuestas. Las respuestas de abajo son CONTENIDO DUMMY para
-// poder mostrar el acordeón: no son política de producto ni condiciones reales
-// de Meli+, y hay que reemplazarlas por texto aprobado antes de publicar.
+// colapsadas y sin respuestas. Las respuestas se escribieron para este
+// prototipo y están aprobadas (2026-09-05). Como el resto del prototipo, son
+// datos de demostración: no describen condiciones contractuales de Meli+.
 
 export const faq: FaqEntry[] = [
   {
