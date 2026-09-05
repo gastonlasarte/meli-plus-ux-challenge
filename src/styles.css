@@ -23,9 +23,6 @@
   background: #e8e8e8;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
-  --yellow: #ffe600;
-  --surface: #f5f5f5;
-  --action: #3483fa;
 }
 * { box-sizing: border-box; }
 body { margin: 0; }
@@ -36,14 +33,7 @@ button, h1, h2, h3, h4, p, ul { margin: 0; }
 img { display: block; }
 strong { font-weight: 700; }
 :focus-visible { outline: 3px solid #005fcc; outline-offset: 3px; }
-.page { max-width: 480px; margin-inline: auto; background: var(--surface); overflow: clip; }
-
-.top-bar { background: var(--yellow); height: 80px; }
-.status-bar { height: 24px; padding-inline: 8px; background: rgb(0 0 0 / 0.04); display: flex; justify-content: flex-end; align-items: center; gap: 4px; }
-.status-bar img, .status-bar span { opacity: 0.63; }
-.status-bar span { font-family: Arial, sans-serif; font-size: 14px; }
-.top-bar__navigation { height: 56px; display: flex; align-items: center; padding-inline: 6px; }
-.back-button { width: 44px; height: 44px; padding: 10px; border: 0; background: transparent; }
+.page { max-width: var(--page-width); margin-inline: auto; background: var(--surface); overflow: clip; }
 
 .hero { background: var(--yellow); padding: 104px 16px 224px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .meli-logo { flex: none; }
@@ -67,35 +57,10 @@ strong { font-weight: 700; }
 .carousel__slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; opacity: 0.24; }
 .carousel__slide.is-active { opacity: 1; }
 .carousel__indicators { display: flex; justify-content: center; }
-.carousel__indicators button { display: grid; align-items: center; justify-items: end; width: 44px; height: 44px; padding: 0 4px; background: transparent; border: 0; border-radius: 4px; }
+.carousel__indicators button { display: grid; align-items: center; justify-items: end; width: var(--target-size); height: var(--target-size); padding: 0 calc(var(--plan-dot-gap) / 2); background: transparent; border: 0; border-radius: 4px; }
 /* Keep the two 8px dots 8px apart within adjacent, non-overlapping hit areas. */
 .carousel__indicators button:last-child { justify-items: start; }
 .carousel__indicators button:focus-visible { outline-color: white; outline-offset: 0; }
-.plan-card { border-radius: 8px; background: var(--surface); overflow: clip; filter: drop-shadow(0 4px 4px rgb(18 18 18 / 0.32)); }
-.plan-card__cover { position: relative; }
-.plan-card__cover > img:first-child { width: 100%; height: 236px; object-fit: cover; }
-.plan-card__header { padding: 32px 16px 16px; display: flex; flex-direction: column; gap: 16px; }
-.plan-card h3 { font-size: 24px; line-height: 30px; font-weight: 700; text-box: trim-both cap alphabetic; }
-.plan-card__header p { font-size: 16px; line-height: 20px; text-box: trim-both cap alphabetic; }
-.plan-card__benefits { padding: 16px 20px 32px; list-style: none; display: flex; flex-direction: column; gap: 12px; border-bottom: 1px solid rgb(18 18 18 / 0.16); }
-.plan-card__benefits li { display: flex; align-items: center; gap: 8px; min-height: 16px; }
-.plan-card__benefits img { flex: none; object-fit: contain; }
-.plan-card__benefits li > div { min-width: 0; }
-.plan-card__benefits p { font-size: 14px; line-height: 16px; text-box: trim-both cap alphabetic; }
-.plan-card__footer { padding: 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.price { display: flex; flex-direction: column; gap: 4px; }
-.price strong { font-size: 24px; line-height: 30px; text-box: trim-both cap alphabetic; }
-.price span { font-size: 12px; line-height: 12px; text-box: trim-both cap alphabetic; }
-.choose-plan { min-height: 44px; padding: 14px 32px; color: white; background: var(--action); border: 0; border-radius: 4px; font-size: 14px; font-weight: 600; line-height: 14px; white-space: nowrap; }
-.plan-card--total { background: rgb(18 18 18 / 0.24); color: #fefefe; }
-.plan-card--total .plan-card__cover > img:first-child { height: 176px; object-position: center top; }
-.plan-card--total .plan-card__cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 27%, rgb(18 18 18 / 0.8)); }
-.plan-card__promoted { position: absolute; bottom: 8px; right: 8px; border-radius: 4px; z-index: 1; }
-.plan-card--total .plan-card__benefits { padding: 16px; gap: 8px; }
-.plan-card--total .plan-card__benefits img { border-radius: 4px; }
-.plan-card--total .plan-card__benefits p { font-size: 12px; line-height: 14px; }
-.plan-card__benefits h4 { font-size: 12px; font-weight: 600; line-height: 12px; margin-bottom: 4px; }
-
 .faq { padding: 32px 16px; }
 .faq h2 { font-size: 16px; line-height: 14px; font-weight: 600; text-box: trim-both cap alphabetic; }
 .faq__question { width: 100%; min-height: 44px; border: 0; border-bottom: 1px solid rgb(18 18 18 / 0.04); padding: 12px 0; display: flex; align-items: flex-start; gap: 16px; color: inherit; text-align: start; background: transparent; font-size: 12px; line-height: 14px; }

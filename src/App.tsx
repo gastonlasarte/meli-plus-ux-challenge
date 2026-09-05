@@ -1,64 +1,12 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { KeyboardEvent, ReactNode } from "react";
+import { useRef } from "react";
+import type { KeyboardEvent } from "react";
+import { Header } from "./components/Header";
+import { PlanCard } from "./components/PlanCard";
+import { plans } from "./data/plans";
+import { useSnapCarousel } from "./components/useSnapCarousel";
+import { carouselKeyIndex } from "./components/carouselModel";
 
 const asset = (name: string) => `/assets/figma/${name}`;
-
-type Plan = {
-  id: string;
-  name: string;
-  price: string;
-  cover: string;
-  description: ReactNode;
-  benefits: { image: string; title?: string; text: ReactNode }[];
-};
-
-// Copy and order come from Figma node 40000024:493, not the earlier B1/B2 draft.
-const plans: Plan[] = [
-  {
-    id: "total",
-    name: "Meli+ Total",
-    price: "$17.90",
-    cover: "total-cover.png",
-    description: <>Disfruta de las mejores películas, series y música además de todos los beneficios de <strong>Meli+ Esencial.</strong></>,
-    benefits: [
-      { image: "disney.png", title: "Disney+ Estándar", text: "Películas, series y el deporte de ESPN." },
-      { image: "deezer.png", title: "Deezer Premium", text: "Música sin anuncios por 12 meses." },
-      { image: "max.png", title: "Max", text: "30% Off." },
-      { image: "paramount.png", title: "Paramount+", text: "30% Off." },
-    ],
-  },
-  {
-    id: "esencial",
-    name: "Meli+ Esencial",
-    price: "$9.90",
-    cover: "esencial-cover.png",
-    description: "Ahorra en tus compras, pagos y haz crecer tu dinero.",
-    benefits: [
-      { image: "check.svg", text: "Envíos gratis desde $29.00" },
-      { image: "check.svg", text: "3 Cuotas extra sin intereses." },
-      { image: "check.svg", text: "Cash-back en cryptomonedas." },
-      { image: "check.svg", text: <>Tu dinero rinde más en <strong>Mercado Pago.</strong></> },
-    ],
-  },
-];
-
-function Header() {
-  return (
-    <header className="top-bar">
-      <div className="status-bar" aria-hidden="true">
-        <img src={asset("wifi.svg")} alt="" width="18" height="14" />
-        <img src={asset("cellular.svg")} alt="" width="14" height="14" />
-        <img src={asset("battery.svg")} alt="" width="9" height="14" />
-        <span>12:30</span>
-      </div>
-      <div className="top-bar__navigation">
-        <button className="back-button" type="button" disabled aria-label="Volver">
-          <img src={asset("arrow-left.svg")} alt="" width="24" height="24" />
-        </button>
-      </div>
-    </header>
-  );
-}
 
 function Hero() {
   return (
@@ -69,70 +17,13 @@ function Hero() {
   );
 }
 
-function PlanCard({ plan }: { plan: Plan }) {
-  return (
-    <article className={`plan-card plan-card--${plan.id}`} aria-labelledby={`${plan.id}-title`}>
-      <div className="plan-card__cover">
-        <img src={asset(plan.cover)} alt="" width="320" height={plan.id === "total" ? 176 : 236} draggable="false" />
-        {plan.id === "total" && <img className="plan-card__promoted" src={asset("disney.png")} width="32" height="32" alt="" />}
-      </div>
-      <div className="plan-card__header">
-        <h3 id={`${plan.id}-title`}>{plan.name}</h3>
-        <p>{plan.description}</p>
-      </div>
-      <ul className="plan-card__benefits">
-        {plan.benefits.map((benefit, index) => (
-          <li key={index}>
-            <img src={asset(benefit.image)} alt="" width={benefit.title ? 32 : 16} height={benefit.title ? 32 : 16} draggable="false" />
-            <div>{benefit.title && <h4>{benefit.title}</h4>}<p>{benefit.text}</p></div>
-          </li>
-        ))}
-      </ul>
-      <footer className="plan-card__footer">
-        <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>
-        <button className="choose-plan" type="button" disabled>Elegir Plan</button>
-      </footer>
-    </article>
-  );
-}
-
 function PlanCarousel() {
-  const [active, setActive] = useState(1);
-  const rail = useRef<HTMLDivElement>(null);
-  const slides = useRef<(HTMLDivElement | null)[]>([]);
+  const { active, rail, slides, select } = useSnapCarousel(plans.length, 1);
   const indicators = useRef<(HTMLButtonElement | null)[]>([]);
 
-  // Start at Esencial before paint, matching the selected state of the frame.
-  useLayoutEffect(() => {
-    const container = rail.current;
-    const initial = slides.current[1];
-    if (container && initial) container.scrollLeft = initial.offsetLeft - 24;
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      const visible = entries.find((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.65);
-      if (visible) setActive(Number((visible.target as HTMLElement).dataset.index));
-    }, { root: rail.current, threshold: 0.65 });
-    slides.current.forEach((slide) => { if (slide) observer.observe(slide); });
-    return () => observer.disconnect();
-  }, []);
-
-  const select = (index: number) => {
-    const container = rail.current;
-    const slide = slides.current[index];
-    if (!container || !slide) return;
-    container.scrollTo({
-      left: slide.offsetLeft - 24,
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
-    });
-  };
-
   const onKeyDown = (event: KeyboardEvent, index: number) => {
-    let next: number;
-    if (event.key === "ArrowLeft" || event.key === "Home") next = 0;
-    else if (event.key === "ArrowRight" || event.key === "End") next = 1;
-    else return;
+    const next = carouselKeyIndex(event.key, index, plans.length);
+    if (next === null) return;
     event.preventDefault();
     if (next !== index) select(next);
     indicators.current[next]?.focus({ preventScroll: true });
@@ -153,7 +44,7 @@ function PlanCarousel() {
             aria-label={`${index + 1} de 2: ${plan.name}`}
             inert={active !== index}
           >
-            <PlanCard plan={plan} />
+            <PlanCard plan={plan} active={active === index} />
           </div>
         ))}
       </div>
