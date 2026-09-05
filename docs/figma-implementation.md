@@ -64,3 +64,22 @@ También se desvían del frame, por accesibilidad:
 - `--action` y `--success` se oscurecen hasta pasar 4.5:1 en todos sus roles.
 - Los controles sin destino se pintan como deshabilitados en lugar de a opacidad 1.
 - Los tamaños de texto siguen la escala por rol de `tokens.css`; el piso es 12px.
+
+### Iconos
+
+Los iconos de UI del frame (Material Symbols relleno) se reemplazan por Iconoir
+(trazo 1.5 sobre grilla de 24). Se copian los paths en `src/components/Icon.tsx`
+en lugar de instalar `iconoir-react`, así el prototipo sigue sin dependencias
+nuevas; la licencia MIT y la atribución están en `NOTICE.md`.
+
+El motivo no es estético: como `<img>`, cada icono traía el color horneado en el
+archivo y no seguía a los tokens — `add.svg` e `info.svg` habían quedado con el
+azul anterior. Inline y con `currentColor`, el icono toma el color de su
+superficie. Eso además elimina el `filter: invert(1)` del toast y los dos
+archivos que representaban el estado de un mismo punto indicador, ahora CSS.
+
+El trazo es 1.5, y 2 cuando el icono acompaña texto en peso 600.
+
+Las marcas (Visa, Mastercard, Mercado Pago y los logos de los servicios) y los
+assets decorativos siguen siendo los originales del frame: Iconoir no tiene
+logotipos de marca.

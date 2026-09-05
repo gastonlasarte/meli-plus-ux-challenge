@@ -59,4 +59,3 @@
   background: transparent;
   padding: var(--space-2);
 }
-.toast button img { filter: invert(1); }

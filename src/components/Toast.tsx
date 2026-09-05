@@ -12,7 +12,7 @@ export function Toast({ message, onDismiss }: { message: string; onDismiss: () =
     <div className="toast" data-open={Boolean(message)} inert={!message} aria-hidden={!message}>
       <p>{message || lastMessage}</p>
       <button type="button" aria-label="Cerrar mensaje" onClick={onDismiss}>
-        <Icon name="close.svg" size={20} />
+        <Icon name="close" size={20} />
       </button>
     </div>
   </>;

@@ -1,15 +1,16 @@
 import { useId } from "react";
 import type { Plan } from "../data/plans";
 import { Button } from "./Button";
+import { Icon } from "./Icon";
 import { ServiceLogo } from "./ServiceLogo";
 import { ServiceCarousel } from "./ServiceCarousel";
 
 export function BenefitsList({ benefits }: { benefits: Plan["benefits"] }) {
   return <ul className="plan-card__benefits">
     {benefits.map((benefit, index) => <li key={index}>
-      {benefit.title
-        ? <ServiceLogo service={benefit.image.replace(".png", "")} />
-        : <img src={`/assets/figma/${benefit.image}`} alt="" width="16" height="16" draggable="false" />}
+      {benefit.service
+        ? <ServiceLogo service={benefit.service} />
+        : <Icon name="check" size={16} />}
       <div>{benefit.title && <h4>{benefit.title}</h4>}<p>{benefit.text}</p></div>
     </li>)}
   </ul>;

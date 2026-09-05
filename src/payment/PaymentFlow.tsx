@@ -173,16 +173,16 @@ export function PaymentFlow() {
               </div>
             </fieldset>
             {error && <p className="selection-error" id="selection-error">{error}</p>}
-            <button className="add-method selection-new" type="button" disabled><span className="add-method__icon"><Icon name="add.svg" /></span>Agregar un nuevo medio de pago</button>
+            <button className="add-method selection-new" type="button" disabled><span className="add-method__icon"><Icon name="add" strokeWidth={2} /></span>Agregar un nuevo medio de pago</button>
             <Button className="payment-primary selection-submit" type="submit">{payment.alternate ? "Guardar alternativo" : "Agregar como alternativo"}</Button>
           </form>
         </main>
-        <footer className="payment-security"><Icon name="lock.svg" size={16} />Pago seguro.</footer>
+        <footer className="payment-security"><Icon name="lock" size={16} />Pago seguro.</footer>
       </> : <>
         <main>
           <section className="subscription-area" aria-labelledby="subscription-heading">
             {!alternate && !bannerDismissed && <aside className="payment-invitation" aria-labelledby="invitation-title">
-              <button className="payment-close" type="button" aria-label="Cerrar sugerencia" onClick={() => { setBannerDismissed(true); paymentsHeading.current?.focus(); }}><Icon name="close.svg" size={20} /></button>
+              <button className="payment-close" type="button" aria-label="Cerrar sugerencia" onClick={() => { setBannerDismissed(true); paymentsHeading.current?.focus(); }}><Icon name="close" size={20} /></button>
               <h2 id="invitation-title">Agregá un medio de pago alternativo</h2>
               <p>{explanation}</p>
               <Button variant="dark" id="banner-add-alternate" className="payment-primary" type="button" onClick={openSelector}>Agregar como alternativo</Button>
@@ -192,8 +192,8 @@ export function PaymentFlow() {
               <h2 id="subscription-heading">Tu suscripción actual</h2>
               <PlanCard plan={currentPlan} subscribed />
               <div className="service-code">
-                <div><div className="service-code__value"><strong>314159265358</strong><button type="button" aria-label="Copiar código de servicio" onClick={async () => { try { await navigator.clipboard.writeText("314159265358"); setNotice("Copiaste el código de servicio."); } catch { setNotice("No pudimos copiar el código. Seleccionalo para copiarlo."); } }}><Icon name="copy.svg" size={20} /></button></div><p>Código de servicio Disney+ / Star+</p></div>
-                <button className="service-help" type="button" disabled aria-label="Ayuda con el código de servicio"><Icon name="help.svg" size={24} /></button>
+                <div><div className="service-code__value"><strong>314159265358</strong><button type="button" aria-label="Copiar código de servicio" onClick={async () => { try { await navigator.clipboard.writeText("314159265358"); setNotice("Copiaste el código de servicio."); } catch { setNotice("No pudimos copiar el código. Seleccionalo para copiarlo."); } }}><Icon name="copy" size={20} /></button></div><p>Código de servicio Disney+ / Star+</p></div>
+                <button className="service-help" type="button" disabled aria-label="Ayuda con el código de servicio"><Icon name="help" size={24} /></button>
               </div>
             </div>
           </section>
@@ -209,7 +209,7 @@ export function PaymentFlow() {
                 </div>
               </div>}
             </div>
-            {!alternate && <div className="add-method-row"><button id="add-alternate" className="add-method" type="button" onClick={openSelector}><span className="add-method__icon"><Icon name="add.svg" /></span>Agregar un medio de pago alternativo</button><button ref={helpButton} className="payment-info" type="button" aria-label="Cómo funciona el medio alternativo" aria-expanded={helpOpen} aria-controls="alternate-help" onClick={() => setHelpOpen(!helpOpen)}><Icon name="info.svg" /></button></div>}
+            {!alternate && <div className="add-method-row"><button id="add-alternate" className="add-method" type="button" onClick={openSelector}><span className="add-method__icon"><Icon name="add" strokeWidth={2} /></span>Agregar un medio de pago alternativo</button><button ref={helpButton} className="payment-info" type="button" aria-label="Cómo funciona el medio alternativo" aria-expanded={helpOpen} aria-controls="alternate-help" onClick={() => setHelpOpen(!helpOpen)}><Icon name="info" /></button></div>}
             {helpOpen && !alternate && <div className="alternate-help" id="alternate-help"><p>{explanation}</p><button type="button" onClick={() => { setHelpOpen(false); helpButton.current?.focus(); }}>Entendido</button></div>}
             {alternate && <p className="alternate-explanation">{explanation}</p>}
           </section>
@@ -228,7 +228,7 @@ export function PaymentFlow() {
         if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
         else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
       }}>
-        <button className="payment-close" type="button" aria-label="Cerrar confirmación" onClick={cancelRemoval}><Icon name="close.svg" size={20} /></button>
+        <button className="payment-close" type="button" aria-label="Cerrar confirmación" onClick={cancelRemoval}><Icon name="close" size={20} /></button>
         <h2 id="remove-title">¿Querés eliminar este medio de pago alternativo?</h2>
         <p id="remove-description">{alternate?.name} dejará de usarse como respaldo para Meli+ Total. Seguirá guardado en tu cuenta y tu medio principal no cambiará.</p>
         <div className="payment-dialog__actions"><Button variant="danger" className="payment-primary" type="button" onClick={confirmRemoval}>Eliminar alternativo</Button><Button variant="text" ref={cancelButton} className="payment-secondary" type="button" onClick={cancelRemoval}>Cancelar</Button></div>

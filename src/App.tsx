@@ -5,6 +5,7 @@ import { PlanCard } from "./components/PlanCard";
 import { plans } from "./data/plans";
 import { faq } from "./data/faq";
 import type { FaqEntry } from "./data/faq";
+import { Icon } from "./components/Icon";
 import { useSnapCarousel } from "./components/useSnapCarousel";
 import { carouselKeyIndex } from "./components/carouselModel";
 
@@ -62,7 +63,7 @@ function PlanCarousel() {
             onClick={() => select(index)}
             onKeyDown={(event) => onKeyDown(event, index)}
           >
-            <img src={asset(active === index ? "dot-active.svg" : "dot-inactive.svg")} alt="" width="8" height="8" />
+            <span className="dot" data-active={active === index} />
           </button>
         ))}
       </div>
@@ -103,7 +104,7 @@ function FaqItem({ id, question, answer }: FaqEntry) {
           onClick={() => setOpen(!open)}
         >
           <span>{question}</span>
-          <img src={asset("chevron.svg")} alt="" width="24" height="24" />
+          <Icon name="chevron" />
         </button>
       </h3>
       <div className="faq__answer" id={panel} role="region" aria-labelledby={button} hidden={!open}>

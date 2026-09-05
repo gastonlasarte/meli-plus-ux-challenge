@@ -72,7 +72,7 @@ export function ServiceCarousel({ enabled = true }: { enabled?: boolean }) {
     <button className="service-carousel__next" type="button" aria-label="Ver siguiente contenido"
       aria-controls={id} onClick={() => { cancelHint(); select((active + 1) % services.length); }}>
       <span className="service-indicators" aria-hidden="true">{services.map((service, index) =>
-        <img key={service.id} src={`/assets/figma/dot-${active === index ? "active" : "inactive"}.svg`} alt="" width="6" height="6" />)}
+        <span key={service.id} className="dot" data-active={active === index} />)}
       </span>
     </button>
     <p className="sr-only" role="status">{changed ? `${services[active].name}, ${active + 1} de ${services.length}` : ""}</p>
