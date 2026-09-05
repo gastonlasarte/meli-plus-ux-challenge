@@ -12,7 +12,7 @@ import type { MethodId } from "./model";
 const explanation = "Lo usaremos si no podemos cobrar tu suscripción con el medio principal.";
 const currentPlan = {
   ...plans[0],
-  description: <>Estás disfrutando de las mejores películas, series y música además de todos los beneficios de <strong>Meli+ Esencial.</strong></>,
+  description: <>Estás disfrutando de las mejores películas, series y música, además de todos los beneficios de <strong>Meli+ Esencial.</strong></>,
 };
 
 function MethodIcon({ method }: { method: typeof methods[number] }) {
@@ -154,7 +154,7 @@ export function PaymentFlow() {
   }
 
   return (
-    <div className={`page payment-page${selecting ? " payment-page--selection" : ""}`}>
+    <div className={`page payment-page${selecting ? " payment-page--selection" : ""}${notice ? " payment-page--notice" : ""}`}>
       <a className="skip-link" href={selecting ? "#choose-method" : "#payment-methods"}>Ir a los medios de pago</a>
       <Header title={selecting ? "Medio de pago alternativo" : "Detalle"} onBack={selecting ? () => closeSelector() : undefined} headingRef={heading} />
       {selecting ? <>
@@ -173,7 +173,7 @@ export function PaymentFlow() {
               </div>
             </fieldset>
             {error && <p className="selection-error" id="selection-error">{error}</p>}
-            <button className="add-method selection-new" type="button" disabled><span className="add-method__icon"><Icon name="add.svg" /></span>Nuevo medio de pago</button>
+            <button className="add-method selection-new" type="button" disabled><span className="add-method__icon"><Icon name="add.svg" /></span>Agregar un nuevo medio de pago</button>
             <Button className="payment-primary selection-submit" type="submit">{payment.alternate ? "Guardar alternativo" : "Agregar como alternativo"}</Button>
           </form>
         </main>
@@ -186,7 +186,7 @@ export function PaymentFlow() {
               <h2 id="invitation-title">Agregá un medio de pago alternativo</h2>
               <p>{explanation}</p>
               <Button variant="dark" id="banner-add-alternate" className="payment-primary" type="button" onClick={openSelector}>Agregar como alternativo</Button>
-              <p className="invitation-support">O contactá a <button type="button" disabled>soporte.</button></p>
+              <p className="invitation-support">O contactá a <button type="button" disabled>soporte</button>.</p>
             </aside>}
             <div className="subscription-content">
               <h2 id="subscription-heading">Tu suscripción actual</h2>
@@ -231,7 +231,7 @@ export function PaymentFlow() {
         <button className="payment-close" type="button" aria-label="Cerrar confirmación" onClick={cancelRemoval}><Icon name="close.svg" size={20} /></button>
         <h2 id="remove-title">¿Querés eliminar este medio de pago alternativo?</h2>
         <p id="remove-description">{alternate?.name} dejará de usarse como respaldo para Meli+ Total. Seguirá guardado en tu cuenta y tu medio principal no cambiará.</p>
-        <div className="payment-dialog__actions"><Button className="payment-primary" type="button" onClick={confirmRemoval}>Eliminar alternativo</Button><Button variant="text" ref={cancelButton} className="payment-secondary" type="button" onClick={cancelRemoval}>Cancelar</Button></div>
+        <div className="payment-dialog__actions"><Button variant="danger" className="payment-primary" type="button" onClick={confirmRemoval}>Eliminar alternativo</Button><Button variant="text" ref={cancelButton} className="payment-secondary" type="button" onClick={cancelRemoval}>Cancelar</Button></div>
       </dialog>
     </div>
   );

@@ -1,8 +1,10 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { Header } from "./components/Header";
 import { PlanCard } from "./components/PlanCard";
 import { plans } from "./data/plans";
+import { faq } from "./data/faq";
+import type { FaqEntry } from "./data/faq";
 import { useSnapCarousel } from "./components/useSnapCarousel";
 import { carouselKeyIndex } from "./components/carouselModel";
 
@@ -12,13 +14,13 @@ function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <img className="meli-logo" src={asset("meli-logo.svg")} alt="Meli+" width="60" height="24" />
-      <h1 id="hero-title">Consigue <strong>envíos gratis, cuotas extra sin intereses, cash back</strong> y beneficios en entretenimiento.</h1>
+      <h1 id="hero-title">Conseguí <strong>envíos gratis, cuotas extra sin intereses, cashback</strong> y beneficios en entretenimiento.</h1>
     </section>
   );
 }
 
 function PlanCarousel() {
-  const { active, rail, slides, select } = useSnapCarousel(plans.length, 1);
+  const { active, changed, rail, slides, select } = useSnapCarousel(plans.length, 1);
   const indicators = useRef<(HTMLButtonElement | null)[]>([]);
 
   const onKeyDown = (event: KeyboardEvent, index: number) => {
@@ -41,7 +43,7 @@ function PlanCarousel() {
             ref={(element) => { slides.current[index] = element; }}
             role="group"
             aria-roledescription="diapositiva"
-            aria-label={`${index + 1} de 2: ${plan.name}`}
+            aria-label={`${index + 1} de ${plans.length}: ${plan.name}`}
             inert={active !== index}
           >
             <PlanCard plan={plan} active={active === index} />
@@ -64,7 +66,7 @@ function PlanCarousel() {
           </button>
         ))}
       </div>
-      <p className="sr-only" role="status" aria-live="polite">{plans[active].name}</p>
+      <p className="sr-only" role="status" aria-live="polite">{changed ? plans[active].name : ""}</p>
     </div>
   );
 }
@@ -79,30 +81,43 @@ function MarketingZone() {
         <img className="marketing__bottom-wave" src={asset("wave-bottom.svg")} alt="" width="752" height="37" />
       </div>
       <img className="hero-art" src={asset("hero.png")} alt="" width="360" height="303" fetchPriority="high" />
-      <h2 id="plans-title" tabIndex={-1}>Elige un plan</h2>
+      <h2 id="plans-title" tabIndex={-1}>Elegí un plan</h2>
       <PlanCarousel />
     </section>
   );
 }
 
-const questions = [
-  <>Si me suscribo a uno de los planes de <strong>Meli+</strong>, ¿puedo cambiarlo luego?</>,
-  <>Si me suscribo a <strong>Meli+</strong>, ¿tendré acceso a <strong>Disney+</strong> y <strong>Deezer Premium</strong> sin cargo extra?</>,
-  <>¿Puedo cambiar el plan de <strong>Disney+</strong> que está incluido con <strong>Meli+ Total</strong>?</>,
-  <>¿Qué sucede si ya contraté <strong>Disney+</strong> con otro proveedor?</>,
-];
+function FaqItem({ id, question, answer }: FaqEntry) {
+  const [open, setOpen] = useState(false);
+  const button = `faq-question-${id}`;
+  const panel = `faq-answer-${id}`;
+  return (
+    <div className="faq__item">
+      <h3>
+        <button
+          id={button}
+          className="faq__question"
+          type="button"
+          aria-expanded={open}
+          aria-controls={panel}
+          onClick={() => setOpen(!open)}
+        >
+          <span>{question}</span>
+          <img src={asset("chevron.svg")} alt="" width="24" height="24" />
+        </button>
+      </h3>
+      <div className="faq__answer" id={panel} role="region" aria-labelledby={button} hidden={!open}>
+        <p>{answer}</p>
+      </div>
+    </div>
+  );
+}
 
 function FrequentlyAskedQuestions() {
   return (
     <section className="faq" aria-labelledby="faq-title">
-      <h2 id="faq-title">Preguntas Frecuentes</h2>
-      {questions.map((question, index) => (
-        // Only collapsed questions are supplied by the frame. No fabricated answers.
-        <button className="faq__question" type="button" key={index} disabled>
-          <span>{question}</span>
-          <img src={asset("chevron.svg")} alt="" width="24" height="24" />
-        </button>
-      ))}
+      <h2 id="faq-title">Preguntas frecuentes</h2>
+      {faq.map((entry) => <FaqItem key={entry.id} {...entry} />)}
     </section>
   );
 }
@@ -111,7 +126,7 @@ function Legal() {
   return (
     <footer className="legal">
       <p>Los beneficios de Meli son válidos para usuarios mayores de edad.</p>
-      <p>(1) Envíos gratis para productos seleccionados con la etiqueta Meli+ en la modalidad de entrega "Tu Día de Entregas" y sujeto a condiciones. Consulta los Términos y condiciones.</p>
+      <p>(1) Envíos gratis para productos seleccionados con la etiqueta Meli+ en la modalidad de entrega "Tu Día de Entregas" y sujeto a condiciones. Consultá los Términos y condiciones.</p>
       <p>(2) Cashback en Meli Dólares en tu cuenta de Mercado Pago. Tope de hasta 5% por compras realizadas en Mercado Libre y 0,6% por pago con tarjeta de crédito de Mercado Pago. Sujeto a Términos y condiciones.</p>
     </footer>
   );

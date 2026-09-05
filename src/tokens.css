@@ -1,17 +1,26 @@
 :root {
-  --yellow: #ffe600;
-  --surface: #f5f5f5;
-  --surface-card: #fff;
-  --action: #3483fa;
-  --action-dark: #121212;
-  --text-primary: rgb(0 0 0 / 0.9);
-  --text-secondary: rgb(0 0 0 / 0.55);
-  --text-over-dark: #fefefe;
-  --surface-over-dark: rgb(18 18 18 / 0.24);
-  --border-subtle: rgb(18 18 18 / 0.08);
-  --border-over-dark: rgb(18 18 18 / 0.16);
-  --success: #00a650;
-  --subscription-gradient: linear-gradient(255.54deg, #5a238d 22.054%, #aa1192 121.7%);
+  --yellow: oklch(0.917 0.192 101.407);
+  --surface: oklch(0.97 0 0);
+  --surface-card: oklch(1 0 0);
+  --action: oklch(0.512 0.182 259.016);
+  --action-dark: oklch(0.182 0 0);
+  --text-primary: oklch(0 0 0 / 0.9);
+  --text-secondary: oklch(0 0 0 / 0.55);
+  --text-over-dark: oklch(0.997 0 0);
+  --surface-over-dark: oklch(0.182 0 0 / 0.24);
+  --border-subtle: oklch(0.182 0 0 / 0.08);
+  --border-over-dark: oklch(0.182 0 0 / 0.16);
+  --success: oklch(0.487 0.142 147.626);
+  --success-surface: oklch(0.924 0.045 162.41);
+  --danger: oklch(0.5 0.182 29.513);
+  --surface-sunken: oklch(0.931 0 0);
+  --surface-inverse: oklch(0.26 0 0);
+  --border-hairline: oklch(0.182 0 0 / 0.04);
+  --service-deezer-bg: oklch(0.184 0.008 285.577);
+  --focus-ring: var(--action);
+  --brand-violet: oklch(0.396 0.165 303.128);
+  --brand-magenta: oklch(0.508 0.216 336.469);
+  --subscription-gradient: linear-gradient(255.54deg, var(--brand-violet) 22.054%, var(--brand-magenta) 121.7%);
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -22,6 +31,11 @@
   --radius-control: 4px;
   --radius-surface: 6px;
   --radius-card: 8px;
+  --text-display: 24px;
+  --text-title: 18px;
+  --text-heading: 16px;
+  --text-body: 14px;
+  --text-caption: 12px;
   --icon-small: 16px;
   --icon-medium: 20px;
   --icon-large: 24px;
@@ -39,4 +53,5 @@
   --toast-exit-duration: 120ms;
   --toast-enter-distance: 8px;
   --toast-exit-distance: 4px;
+  --toast-clearance: 84px;
 }

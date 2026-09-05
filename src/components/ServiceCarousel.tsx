@@ -14,7 +14,7 @@ const services = [
 
 export function ServiceCarousel({ enabled = true }: { enabled?: boolean }) {
   const id = useId();
-  const { active, rail, slides, select } = useSnapCarousel(services.length);
+  const { active, changed, rail, slides, select } = useSnapCarousel(services.length);
   const cancelHint = useSwipeHint(rail, enabled);
   const drag = useRef<{ x: number; y: number; left: number; horizontal: boolean } | null>(null);
 
@@ -75,6 +75,6 @@ export function ServiceCarousel({ enabled = true }: { enabled?: boolean }) {
         <img key={service.id} src={`/assets/figma/dot-${active === index ? "active" : "inactive"}.svg`} alt="" width="6" height="6" />)}
       </span>
     </button>
-    <p className="sr-only" role="status">{services[active].name}, {active + 1} de {services.length}</p>
+    <p className="sr-only" role="status">{changed ? `${services[active].name}, ${active + 1} de ${services.length}` : ""}</p>
   </div>;
 }

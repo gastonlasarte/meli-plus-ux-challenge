@@ -32,7 +32,7 @@ export function PlanCard({ plan, subscribed = false, active = true }: {
       <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>
       {subscribed
         ? <Button variant="text" className="subscription-cancel" disabled>Cancelar suscripción</Button>
-        : <Button className="choose-plan" disabled>Elegir Plan</Button>}
+        : <Button className="choose-plan" disabled>Elegir plan</Button>}
     </footer>
   </article>;
 }

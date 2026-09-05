@@ -3,6 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react
 /** Native scrolling owns gestures; observation is the shared source of active state. */
 export function useSnapCarousel(count: number, initial = 0) {
   const [active, setActive] = useState(initial);
+  const [changed, setChanged] = useState(false);
   const activeRef = useRef(initial);
   const rail = useRef<HTMLDivElement>(null);
   const slides = useRef<(HTMLDivElement | null)[]>([]);
@@ -30,6 +31,11 @@ export function useSnapCarousel(count: number, initial = 0) {
     return () => resize.disconnect();
   }, [initial, select]);
 
+  // The status region stays empty until the reader's own action changes the slide.
+  useEffect(() => {
+    if (active !== initial) setChanged(true);
+  }, [active, initial]);
+
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       const visible = entries.find(entry => entry.isIntersecting && entry.intersectionRatio >= 0.65);
@@ -43,5 +49,5 @@ export function useSnapCarousel(count: number, initial = 0) {
     return () => observer.disconnect();
   }, [count]);
 
-  return { active, rail, slides, select };
+  return { active, changed, rail, slides, select };
 }

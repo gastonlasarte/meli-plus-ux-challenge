@@ -42,3 +42,25 @@ No subscription, payment or FAQ-answer behavior is fabricated.
   emulation and a physical touchscreen were not tested.
 - The 8px dots have an 8px visual gap, matching Figma, within adjacent 44px
   selector targets that do not overlap.
+
+## Desvíos posteriores a la auditoría de interfaz
+
+La landing ya no reproduce el copy del frame palabra por palabra. Toda la interfaz
+habla una sola voz —voseo argentino, el registro que ya fijaban `content.md` y
+`payment-flow.md`— porque el producto cambiaba de dialecto al pasar de la landing
+a Details. Cambios de copy respecto del frame:
+
+- `Consigue` → `Conseguí`, `Elige un plan` → `Elegí un plan`, `Disfruta` → `Disfrutá`,
+  `Ahorra` / `haz` → `Ahorrá` / `hacé`, `Consulta` → `Consultá`.
+- Un solo término por concepto: `cash back` / `Cash-back` → `cashback`;
+  `cryptomonedas` → `criptomonedas`; `30% Off.` → `30% de descuento.`
+- Sentence case en toda la interfaz: `Elegir Plan` → `Elegir plan`,
+  `Preguntas Frecuentes` → `Preguntas frecuentes`, `3 Cuotas` → `3 cuotas`.
+- Formato numérico es-AR, coherente con el `$13.000` que ya usaba el flujo de
+  pagos: `$17.90` → `$17,90`, `$9.90` → `$9,90`, `$29.00` → `$29,00`.
+
+También se desvían del frame, por accesibilidad:
+
+- `--action` y `--success` se oscurecen hasta pasar 4.5:1 en todos sus roles.
+- Los controles sin destino se pintan como deshabilitados en lugar de a opacidad 1.
+- Los tamaños de texto siguen la escala por rol de `tokens.css`; el piso es 12px.
