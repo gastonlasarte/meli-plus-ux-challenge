@@ -6,7 +6,7 @@ export const methods = [
 ] as const;
 
 export type MethodId = typeof methods[number]["id"];
-export type PaymentState = { readonly primary: "visa"; readonly alternate: MethodId | null };
+type PaymentState = { readonly primary: "visa"; readonly alternate: MethodId | null };
 export const initialPayment: PaymentState = { primary: "visa", alternate: null };
 export function saveAlternate(state: PaymentState, id: MethodId): PaymentState {
   if (id === state.primary) throw new Error("El principal no puede ser también el alternativo.");
