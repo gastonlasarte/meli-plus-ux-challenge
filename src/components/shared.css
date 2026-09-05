@@ -9,7 +9,7 @@
 .plan-card__header { padding: var(--space-8) var(--space-4) var(--space-4); display: flex; flex-direction: column; gap: var(--space-4); }
 .plan-card h3 { font-size: var(--text-display); line-height: 1.25; font-weight: 700; text-box: trim-both cap alphabetic; }
 .plan-card__header p { font-size: var(--text-heading); line-height: 1.25; text-box: trim-both cap alphabetic; }
-.plan-card__benefits { padding: var(--space-4) 20px var(--space-8); list-style: none; display: flex; flex-direction: column; gap: var(--space-3); border-bottom: 1px solid var(--border-over-dark); }
+.plan-card__benefits { padding: var(--space-4) var(--space-4) var(--space-8); list-style: none; display: flex; flex-direction: column; gap: var(--space-4); border-bottom: 1px solid var(--border-over-dark); }
 .plan-card__benefits li { display: flex; align-items: center; gap: var(--space-2); min-height: 16px; }
 .plan-card__benefits img { flex: none; object-fit: contain; }
 .plan-card__benefits li > div { min-width: 0; }
@@ -20,7 +20,7 @@
 .price span { font-size: var(--text-caption); line-height: 1.25; text-box: trim-both cap alphabetic; }
 .choose-plan { padding-inline: var(--space-8); white-space: nowrap; }
 .plan-card--total { background: var(--surface-over-dark); color: var(--text-over-dark); }
-.plan-card--total .plan-card__benefits { padding: var(--space-4); gap: var(--space-2); }
+.plan-card--total .plan-card__benefits { padding: var(--space-4); gap: var(--space-4); }
 .plan-card--total .plan-card__benefits img { border-radius: var(--radius-control); }
 .plan-card--total .plan-card__benefits p { font-size: var(--text-caption); line-height: 1.25; }
 .plan-card__benefits h4 { font-size: var(--text-body); font-weight: 600; line-height: 1.25; margin-bottom: var(--space-1); }

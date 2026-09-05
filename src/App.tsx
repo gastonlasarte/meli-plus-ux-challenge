@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent, Ref } from "react";
 import { Header } from "./components/Header";
 import { PlanCard } from "./components/PlanCard";
 import { plans } from "./data/plans";
 import { faq } from "./data/faq";
 import type { FaqEntry } from "./data/faq";
 import { Icon } from "./components/Icon";
+import { Toast } from "./components/Toast";
 import { useSnapCarousel } from "./components/useSnapCarousel";
 import { carouselKeyIndex } from "./components/carouselModel";
 
@@ -20,7 +21,7 @@ function Hero() {
   );
 }
 
-function PlanCarousel() {
+function PlanCarousel({ onChoose }: { onChoose: () => void }) {
   const { active, changed, rail, slides, select } = useSnapCarousel(plans.length, 1);
   const indicators = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -47,7 +48,7 @@ function PlanCarousel() {
             aria-label={`${index + 1} de ${plans.length}: ${plan.name}`}
             inert={active !== index}
           >
-            <PlanCard plan={plan} active={active === index} />
+            <PlanCard plan={plan} active={active === index} onChoose={onChoose} />
           </div>
         ))}
       </div>
@@ -72,7 +73,7 @@ function PlanCarousel() {
   );
 }
 
-function MarketingZone() {
+function MarketingZone({ onChoose, heading }: { onChoose: () => void; heading: Ref<HTMLHeadingElement> }) {
   return (
     <section className="marketing" aria-labelledby="plans-title">
       <div className="marketing__background" aria-hidden="true">
@@ -82,8 +83,8 @@ function MarketingZone() {
         <img className="marketing__bottom-wave" src={asset("wave-bottom.svg")} alt="" width="752" height="37" />
       </div>
       <img className="hero-art" src={asset("hero.png")} alt="" width="360" height="303" fetchPriority="high" />
-      <h2 id="plans-title" tabIndex={-1}>Elegí un plan</h2>
-      <PlanCarousel />
+      <h2 id="plans-title" tabIndex={-1} ref={heading}>Elegí un plan</h2>
+      <PlanCarousel onChoose={onChoose} />
     </section>
   );
 }
@@ -133,13 +134,21 @@ function Legal() {
   );
 }
 
+const CHECKOUT_FUERA_DE_ALCANCE = "Elegir un plan no forma parte de este prototipo.";
+
 export function App() {
+  const [notice, setNotice] = useState("");
+  const plansHeading = useRef<HTMLHeadingElement>(null);
   return (
-    <div className="page">
+    <div className={`page${notice ? " page--notice" : ""}`}>
       <a className="skip-link" href="#plans-title">Ir a los planes</a>
       <Header />
-      <main><Hero /><MarketingZone /><FrequentlyAskedQuestions /></main>
+      <main><Hero /><MarketingZone onChoose={() => setNotice(CHECKOUT_FUERA_DE_ALCANCE)} heading={plansHeading} /><FrequentlyAskedQuestions /></main>
       <Legal />
+      <Toast message={notice} onDismiss={() => {
+        plansHeading.current?.focus({ preventScroll: true });
+        setNotice("");
+      }} />
     </div>
   );
 }

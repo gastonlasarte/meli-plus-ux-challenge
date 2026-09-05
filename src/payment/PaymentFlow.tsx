@@ -154,7 +154,7 @@ export function PaymentFlow() {
   }
 
   return (
-    <div className={`page payment-page${selecting ? " payment-page--selection" : ""}${notice ? " payment-page--notice" : ""}`}>
+    <div className={`page payment-page${selecting ? " payment-page--selection" : ""}${notice ? " page--notice" : ""}`}>
       <a className="skip-link" href={selecting ? "#choose-method" : "#payment-methods"}>Ir a los medios de pago</a>
       <Header title={selecting ? "Medio de pago alternativo" : "Detalle"} onBack={selecting ? () => closeSelector() : undefined} headingRef={heading} />
       {selecting ? <>

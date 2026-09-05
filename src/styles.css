@@ -34,6 +34,7 @@ img { display: block; }
 strong { font-weight: 700; }
 :focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
 .page { max-width: var(--page-width); margin-inline: auto; background: var(--surface); overflow: clip; }
+.page--notice { padding-block-end: var(--toast-clearance); }
 
 .hero { background: var(--yellow); padding: 104px 16px 224px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .meli-logo { flex: none; }
@@ -53,7 +54,7 @@ strong { font-weight: 700; }
 .marketing h2 { padding-inline: 16px; margin-block-end: 16px; font-size: var(--text-heading); font-weight: 600; line-height: 1.25; text-box: trim-both cap alphabetic; color: var(--text-over-dark); }
 
 .carousel { position: relative; padding-block-end: 14px; }
-.carousel__rail { position: relative; display: flex; align-items: center; gap: 16px; overflow-x: auto; padding: 0 16px 8px 24px; scroll-padding-inline-start: 24px; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
+.carousel__rail { position: relative; display: flex; align-items: center; gap: 16px; overflow-x: auto; padding: 0 16px 8px; scroll-padding-inline-start: 16px; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; }
 .carousel__rail::-webkit-scrollbar { display: none; }
 .carousel__slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; opacity: 0.24; }
 .carousel__slide.is-active { opacity: 1; }
@@ -74,12 +75,12 @@ strong { font-weight: 700; }
 .faq__question[aria-expanded="true"] .icon { transform: rotate(180deg); }
 /* `hidden` keeps the collapsed answer out of layout and out of the a11y tree. */
 .faq__answer p { padding-block-end: 16px; font-size: var(--text-body); line-height: 1.5; }
-.legal { border-top: 1px solid var(--border-subtle); padding: 32px 16px; font-size: var(--text-caption); line-height: 1.4; }
+.legal { border-top: 1px solid var(--border-subtle); padding: 32px 16px calc(32px + env(safe-area-inset-bottom, 0px)); font-size: var(--text-caption); line-height: 1.4; }
 .legal p { text-box: trim-both cap alphabetic; }
 .legal p + p { margin-top: 8px; }
 
 .sr-only, .skip-link:not(:focus) { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-.skip-link:focus { position: fixed; top: 8px; left: 8px; z-index: 10; background: var(--surface-card); color: var(--action); padding: 12px; }
+.skip-link:focus { position: fixed; top: 8px; inset-inline-start: 8px; z-index: 10; background: var(--surface-card); color: var(--action); padding: 12px; }
 @media (prefers-reduced-motion: no-preference) {
   button { transition: scale 150ms ease-out; }
   button:active:not(:disabled) { scale: 0.96; }

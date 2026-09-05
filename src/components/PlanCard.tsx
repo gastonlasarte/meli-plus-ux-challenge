@@ -16,8 +16,8 @@ export function BenefitsList({ benefits }: { benefits: Plan["benefits"] }) {
   </ul>;
 }
 
-export function PlanCard({ plan, subscribed = false, active = true }: {
-  plan: Plan; subscribed?: boolean; active?: boolean;
+export function PlanCard({ plan, subscribed = false, active = true, onChoose }: {
+  plan: Plan; subscribed?: boolean; active?: boolean; onChoose?: () => void;
 }) {
   const titleId = useId();
   return <article className={`plan-card plan-card--${plan.id}${subscribed ? " plan-card--subscribed" : ""}`} aria-labelledby={titleId}>
@@ -33,7 +33,7 @@ export function PlanCard({ plan, subscribed = false, active = true }: {
       <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>
       {subscribed
         ? <Button variant="text" className="subscription-cancel" disabled>Cancelar suscripción</Button>
-        : <Button className="choose-plan" disabled>Elegir plan</Button>}
+        : <Button className="choose-plan" disabled={!onChoose} onClick={onChoose}>Elegir plan</Button>}
     </footer>
   </article>;
 }

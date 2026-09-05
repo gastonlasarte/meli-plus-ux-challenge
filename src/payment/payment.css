@@ -1,7 +1,6 @@
 .payment-page { min-height: 100svh; }
 .payment-page button { touch-action: manipulation; }
 .payment-page h2 { font-size: var(--text-heading); font-weight: 600; line-height: 1.25; }
-.payment-page--notice { padding-block-end: var(--toast-clearance); }
 .subscription-area { --focus-ring: var(--text-over-dark); padding: var(--space-8) var(--space-4) var(--space-4); color: var(--text-over-dark); background: var(--subscription-gradient); }
 .payment-invitation { --focus-ring: var(--action); position: relative; padding: var(--space-6) var(--space-4) var(--space-4); background: var(--surface-card); color: var(--text-primary); border-radius: var(--radius-surface); }
 .payment-invitation h2 { padding-inline-end: var(--space-6); }
@@ -42,7 +41,7 @@
 .method-tag--alternate { background: var(--surface-sunken); color: var(--text-primary); }
 .method-actions { position: relative; flex: none; }
 .method-modify { background: transparent; border: 0; color: var(--action); padding: var(--space-2) 0; min-height: 44px; font-size: var(--text-body); }
-.method-actions__panel { position: absolute; z-index: var(--layer-menu); top: 100%; right: 0; width: 172px; padding-block: 0; background: var(--surface-card); border-radius: var(--radius-control); box-shadow: var(--shadow-overlay); }
+.method-actions__panel { position: absolute; z-index: var(--layer-menu); top: 100%; inset-inline-end: 0; width: 172px; padding-block: 0; background: var(--surface-card); border-radius: var(--radius-control); box-shadow: var(--shadow-overlay); }
 .method-actions__panel button { display: block; width: 100%; min-height: 44px; padding: var(--space-3) var(--space-2); background: transparent; color: var(--text-primary); font-size: var(--text-body); text-align: start; border: 0; }
 .method-actions__panel button + button { border-top: 1px solid var(--border-subtle); }
 .add-method-row { position: relative; display: flex; align-items: center; margin-top: var(--space-4); background: var(--surface-card); border-radius: var(--radius-surface); box-shadow: var(--shadow-border); }
@@ -58,7 +57,7 @@
   .method-actions__panel, .alternate-help { opacity: 0; }
 }
 .alternate-explanation { margin-top: var(--space-4); font-size: var(--text-body); line-height: 1.4; }
-.subscription-footer { padding: var(--space-4) var(--space-4) var(--space-8); border-top: 1px solid var(--border-subtle); font-size: var(--text-caption); line-height: 1.4; text-align: center; }
+.subscription-footer { padding: var(--space-4) var(--space-4) var(--space-8); border-top: 1px solid var(--border-subtle); font-size: var(--text-caption); line-height: 1.4; text-align: center; padding-block-end: calc(var(--space-8) + env(safe-area-inset-bottom, 0px)); }
 .subscription-footer button { padding: 0; border: 0; background: none; color: var(--action); text-decoration: underline; }
 .subscription-footer > button { margin-top: var(--space-2); }
 .payment-page--selection { display: flex; flex-direction: column; }
@@ -75,7 +74,7 @@
 .selection-new { margin-top: var(--space-4); width: 100%; box-shadow: var(--shadow-border); }
 .selection-submit { margin-top: var(--space-6); }
 .selection-error { margin-top: var(--space-3); color: var(--danger); font-size: var(--text-body); line-height: 1.4; }
-.payment-security { display: flex; align-items: center; justify-content: center; gap: var(--space-1); padding: var(--space-4); border-top: 1px solid var(--border-subtle); font-size: var(--text-caption); }
+.payment-security { display: flex; align-items: center; justify-content: center; gap: var(--space-1); padding: var(--space-4); padding-block-end: calc(var(--space-4) + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--border-subtle); font-size: var(--text-caption); }
 .payment-dialog { margin: auto; width: calc(100% - 32px); max-width: 448px; max-height: calc(100svh - 32px); padding: var(--space-6) var(--space-4) var(--space-4); border: 0; border-radius: var(--radius-surface); color: var(--text-primary); overscroll-behavior: contain; }
 .payment-dialog::backdrop { background: var(--surface-over-dark); }
 .payment-dialog h2 { padding-inline-end: var(--space-4); }
