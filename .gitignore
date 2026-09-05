@@ -8,3 +8,6 @@ dist/
 .env.*
 !.env.example
 *.log
+
+# Config local para levantar el preview; no es parte del prototipo.
+.claude/launch.json

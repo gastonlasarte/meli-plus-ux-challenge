@@ -1,2 +1,0 @@
-{ "version": "0.0.1", "autoPort": true,
-  "configurations": [ { "name": "meli-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 5173 } ] }
