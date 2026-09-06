@@ -45,13 +45,11 @@ export function PlanCard({ plan, subscribed = false, active = true, onChoose, co
             <p>{billing}</p>
           </div>
         : <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>}
-      {subscribed
-        ? <Button variant="text" className="subscription-cancel" disabled>Cancelar suscripción</Button>
-        : <Button className="choose-plan" disabled={!onChoose} onClick={onChoose}>Elegir plan</Button>}
+      {!subscribed && <Button className="choose-plan" disabled={!onChoose} onClick={onChoose}>Elegir plan</Button>}
     </footer>
     {collapsible && <button className="plan-card__toggle" type="button" aria-expanded={expanded}
       aria-controls={`${mediaId} ${aboutId} ${benefitsId}`} onClick={() => setExpanded(!expanded)}>
-      {expanded ? "Ver menos" : "Ver más"}
+      {expanded ? "Ver menos" : "Ver qué incluye"}
     </button>}
   </article>;
 }
