@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { prefersReducedMotion } from "../motion";
 
-/** Native scrolling owns gestures; observation is the shared source of active state. */
 export function useSnapCarousel(count: number, initial = 0) {
   const [active, setActive] = useState(initial);
   const [changed, setChanged] = useState(false);
@@ -14,7 +14,7 @@ export function useSnapCarousel(count: number, initial = 0) {
     const inset = parseFloat(getComputedStyle(container).scrollPaddingInlineStart) || 0;
     container.scrollTo({
       left: slide.offsetLeft - inset,
-      behavior: instant || matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth",
+      behavior: instant || prefersReducedMotion() ? "instant" : "smooth",
     });
   }, []);
 
@@ -31,7 +31,6 @@ export function useSnapCarousel(count: number, initial = 0) {
     return () => resize.disconnect();
   }, [initial, select]);
 
-  // The status region stays empty until the reader's own action changes the slide.
   useEffect(() => {
     if (active !== initial) setChanged(true);
   }, [active, initial]);

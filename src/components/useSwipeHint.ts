@@ -1,8 +1,10 @@
 import { useCallback, useEffect, useRef } from "react";
 import type { RefObject } from "react";
 import { swipeHintOffset } from "./carouselModel";
+import { prefersReducedMotion } from "../motion";
 
-// One demonstration per document load, including navigation away and back.
+// Estado de módulo a propósito: una sola demostración por carga del documento,
+// aunque el componente se desmonte y vuelva a montar.
 let demonstrated = false;
 
 export function useSwipeHint(rail: RefObject<HTMLDivElement | null>, enabled: boolean) {
@@ -16,6 +18,7 @@ export function useSwipeHint(rail: RefObject<HTMLDivElement | null>, enabled: bo
     const element = rail.current;
     if (!element || !enabled || demonstrated) return;
     const motion = matchMedia("(prefers-reduced-motion: reduce)");
+
     let timer = 0;
     let frame = 0;
     let origin: number | null = null;
@@ -40,7 +43,6 @@ export function useSwipeHint(rail: RefObject<HTMLDivElement | null>, enabled: bo
         const start = performance.now();
         const tick = (now: number) => {
           const progress = Math.min((now - start) / 1200, 1);
-          // Reveal a sliver of the next image, then return without changing selection.
           element.scrollLeft = origin! + swipeHintOffset(progress, element.clientWidth);
           if (progress < 1) frame = requestAnimationFrame(tick);
           else abort();

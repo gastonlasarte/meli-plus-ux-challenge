@@ -29,7 +29,7 @@ export function ServiceCarousel({ enabled = true }: { enabled?: boolean }) {
 
   function startDrag(event: PointerEvent<HTMLDivElement>) {
     cancelHint();
-    // Touch/trackpad use the browser's native scrolling and axis arbitration.
+    // Touch y trackpad usan el scroll nativo, que ya arbitra el eje del gesto.
     if (event.pointerType !== "mouse" || event.button !== 0) return;
     drag.current = { x: event.clientX, y: event.clientY, left: event.currentTarget.scrollLeft, horizontal: false };
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -68,7 +68,6 @@ export function ServiceCarousel({ enabled = true }: { enabled?: boolean }) {
         <div className="service-carousel__brand"><ServiceLogo service={service.id} /><span>{service.description}</span></div>
       </div>)}
     </div>
-    {/* Compact dots are indicators inside one generous control, not four tiny hit areas. */}
     <button className="service-carousel__next" type="button" aria-label="Ver siguiente contenido"
       aria-controls={id} onClick={() => { cancelHint(); select((active + 1) % services.length); }}>
       <span className="service-indicators" aria-hidden="true">{services.map((service, index) =>

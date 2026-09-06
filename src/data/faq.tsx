@@ -2,10 +2,8 @@ import type { ReactNode } from "react";
 
 export type FaqEntry = { id: string; question: ReactNode; answer: ReactNode };
 
-// Las preguntas vienen del frame de Figma (nodo 40000024:493), que las trae
-// colapsadas y sin respuestas. Las respuestas se escribieron para este
-// prototipo y están aprobadas (2026-09-05). Como el resto del prototipo, son
-// datos de demostración: no describen condiciones contractuales de Meli+.
+// Preguntas del nodo 40000024:493 de Figma, que las trae sin respuestas.
+// Las respuestas son datos de demostración, no condiciones contractuales.
 
 export const faq: FaqEntry[] = [
   {

@@ -35,7 +35,6 @@ function PlanCarousel({ onChoose }: { onChoose: () => void }) {
 
   return (
     <div className="carousel" role="region" aria-roledescription="carrusel" aria-label="Planes Meli+">
-      {/* Los dos planes se nombran antes de cualquier interacción. */}
       <div className="plan-tabs" role="group" aria-label="Elegir plan">
         {plans.map((plan, index) => (
           <button

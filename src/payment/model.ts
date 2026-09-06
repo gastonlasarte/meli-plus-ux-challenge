@@ -1,13 +1,10 @@
 export const methods = [
   { id: "mastercard", name: "Mastercard terminada en 5470", detail: "Payoneer · Vence en 09/28", icon: "mastercard.svg" },
-  // Fictional fixture updated from 10/24 to match the approved valid-primary scenario.
   { id: "visa", name: "Visa terminada en 8743", detail: "Santander Río · Vence en 10/28", icon: "visa.svg" },
   { id: "balance", name: "Dinero en cuenta", detail: "$13.000 disponibles", icon: "mercado-pago.svg" },
 ] as const;
 
-// Datos de demostración del ciclo de cobro. El flujo existe para que un cobro
-// fallido no termine en una cancelación involuntaria, así que el monto y las
-// fechas son parte del caso, no decoración.
+// Datos de demostración del ciclo de cobro.
 export const subscription = {
   amount: "$17,90",
   nextCharge: "15 de septiembre",

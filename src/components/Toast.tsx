@@ -3,7 +3,7 @@ import { Icon } from "./Icon";
 import "./toast.css";
 
 export function Toast({ message, onDismiss }: { message: string; onDismiss: () => void }) {
-  // Keep the last text painted while CSS completes the discrete display transition.
+  // Conserva el último texto mientras CSS completa la transición de salida.
   const [lastMessage, setLastMessage] = useState(message);
   if (message && message !== lastMessage) setLastMessage(message);
 
