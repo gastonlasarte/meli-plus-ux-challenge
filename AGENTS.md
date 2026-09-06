@@ -21,7 +21,7 @@ Do not:
 - add libraries unless clearly necessary;
 - over-engineer abstractions.
 
-Shared UI between B1 and B2 should reuse components.
+Shared UI should reuse components.
 
 Target:
 mobile-first at 360px.

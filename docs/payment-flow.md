@@ -116,6 +116,16 @@ caso principal.
 - Enviar sin selección muestra un error y enfoca la primera opción.
 - Volver sin guardar conserva el estado anterior.
 - Radio group nativo con etiquetas; navegación de vistas con título y foco.
+- La barra superior se retrae al bajar y vuelve al subir, cerca del inicio de la
+  página o cuando el foco entra en ella. Se mantiene fija durante la selección
+  del alternativo, donde Atrás es la única salida. Con movimiento reducido, el
+  cambio es instantáneo.
+- Las ayudas del código de servicio y del medio alternativo se abren como globo
+  sobre el contenido, con el pico apuntando al ícono que las abrió; no desplazan
+  la página. Se despliegan hacia arriba y se dan vuelta cuando la barra superior
+  las taparía. Cierran con Escape, tocando afuera o con Entendido, que devuelve
+  el foco al ícono. Conservan `aria-expanded` y `aria-controls`: el contenido es
+  interactivo, así que no son tooltips.
 - Confirmación de eliminación con `dialog.showModal()`, fondo inerte, foco inicial
   en Cancelar, ciclo de Tab y cierre con Escape. Cancelar devuelve foco a Modificar;
   eliminar enfoca Medios de pago, ya que el disparador desaparece.
@@ -157,11 +167,6 @@ caso principal.
 - Logos de servicio: caja de 32 × 32 px, radio de 4 px y ajuste de
   imagen por marca. Los archivos originales se guardan en `public/assets/services/`.
 - No se incorporan dependencias nuevas.
-
-Branches locales renombradas a `feature/landing` y `feature/payment-change`.
-Los cambios compartidos se trabajan en payment-change (incluida su ruta `/`);
-feature/landing conserva su commit anterior hasta aprobar el traslado.
-`main` no se modifica.
 
 ## Objetivo del board original
 
@@ -224,8 +229,12 @@ Post-falla:
 - Prueba de navegador: ingreso desde ambos accesos, validación sin selección,
   alta con teclado, cambio de Mastercard a dinero en cuenta, eliminación y Escape.
 - Revisión visual y de desbordamiento a 360, 390 y 412 px.
-- Verificación del CTA negro, logos uniformes, gaps de 4/8 px, header sticky,
-  avance de las cuatro imágenes, Home/End y arrastre anidado sin cambio de plan.
+- Verificación del CTA negro, logos uniformes, gaps de 4/8 px, avance de las
+  cuatro imágenes, Home/End y arrastre anidado sin cambio de plan.
+- Barra retráctil y globo de ayuda: lógica cubierta por tests y geometría medida
+  sobre el DOM —el globo no corre el contenido, el pico cae en el centro del
+  ícono y la barra oculta se traslada 56 px exactos—. El uso se validó en
+  navegador.
 - Demostración observada en navegador: termina con scroll horizontal 0 y
   Disney+ activo. La preferencia de movimiento se contempla en código; no se
   cambió la configuración de accesibilidad del sistema del usuario.

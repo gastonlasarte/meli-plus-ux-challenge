@@ -12,6 +12,9 @@ planes y carrusel.
 - Los planes se eligen con un control segmentado que lleva sus nombres, y
   responde a puntero, teclado, flechas, Home y End.
 - Un `IntersectionObserver` mantiene el control en sincronía con la card visible.
+- La barra superior se retrae al bajar y vuelve al subir o cerca del inicio de
+  la página, para dejar el alto al contenido. Con movimiento reducido, el cambio
+  es instantáneo.
 - Con movimiento reducido, el posicionamiento es instantáneo y se quitan las
   transiciones de opacidad.
 - Las imágenes y los SVG decorativos originales viven en `public/assets/figma`.
