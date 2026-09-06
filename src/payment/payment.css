@@ -1,4 +1,6 @@
 .payment-page { min-height: 100svh; }
+/* El header pertenece al bloque violeta que encabeza, no al amarillo de la landing. */
+.payment-page .top-bar { background: var(--subscription-gradient); color: var(--text-over-dark); --focus-ring: var(--text-over-dark); }
 .payment-page button { touch-action: manipulation; }
 .payment-page h2 { font-size: var(--text-heading); font-weight: 600; line-height: 1.25; }
 .subscription-area { --focus-ring: var(--text-over-dark); padding: var(--space-8) var(--space-4) var(--space-4); color: var(--text-over-dark); background: var(--subscription-gradient); }

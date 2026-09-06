@@ -37,8 +37,8 @@ reales. El saldo, identificadores y fechas son datos de demostración.
 5. Volver a Details, mostrar el rol Alternativo y feedback persistente descartable.
 6. Gestión secundaria: cambiar y eliminar únicamente el alternativo. Eliminarlo
    lo desvincula de Meli+, pero no lo borra de los medios guardados en la cuenta.
-7. Header amarillo sticky en landing, Details y selección, sin la barra ficticia
-   Android. Violeta Meli+ en la suscripción; CTA negro en la invitación y azul
+7. Header sticky sin la barra ficticia Android: amarillo en la landing y
+   violeta en Details y selección, para que encabece el bloque al que pertenece. Violeta Meli+ en la suscripción; CTA negro en la invitación y azul
    en las acciones de guardado. Reutilizar fuentes, tarjeta y assets originales.
 
 Para representar el escenario vigente, la fecha ficticia de Visa cambia de
