@@ -9,8 +9,9 @@ en Total, por decisión de producto: es el plan hacia el que se empuja.
 
 Esta branch sigue el frame provisto —copy, precios, assets, orden de planes y
 carrusel—. Los requisitos y el copy anteriores de B1/B2 se conservan en la
-documentación y en la branch `prototype/b1-b2`; no se incorporan a esta
-implementación visual.
+documentación y en el historial, en el commit `Save original B1 and B2
+prototype with project references`; no se incorporan a esta implementación
+visual.
 
 ## Comportamiento implementado
 
