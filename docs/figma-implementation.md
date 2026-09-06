@@ -1,48 +1,57 @@
-# Figma implementation
+# Implementación del frame de Figma
 
 Branch: `figma/implementation`
 
-Source: https://www.figma.com/design/3iU60ByWEkvtF8qQGl54ac/HISP---Challenge-UX-tech-3?node-id=40000024-493
+Fuente: https://www.figma.com/design/3iU60ByWEkvtF8qQGl54ac/HISP---Challenge-UX-tech-3?node-id=40000024-493
 
 Frame: Plan Selection, 360 × 1975. El frame abre en Esencial; la landing abre
 en Total, por decisión de producto: es el plan hacia el que se empuja.
 
-This branch follows the supplied Figma frame, including its copy, prices, assets,
-plan order and carousel. The earlier B1/B2 requirements and copy remain preserved
-in the documentation and in branch `prototype/b1-b2`; they are not merged into
-this new visual implementation.
+Esta branch sigue el frame provisto —copy, precios, assets, orden de planes y
+carrusel—. Los requisitos y el copy anteriores de B1/B2 se conservan en la
+documentación y en la branch `prototype/b1-b2`; no se incorporan a esta
+implementación visual.
 
-## Implemented behavior
+## Comportamiento implementado
 
-- Native horizontal scroll with CSS scroll snapping.
-- Plan selectors support pointer, keyboard, arrow keys, Home and End.
-- IntersectionObserver keeps the selectors in sync with the visible card.
-- Reduced motion uses instant positioning and removes opacity transitions.
-- Original images and SVG exports are stored in `public/assets/figma`.
-- Proxima Nova fonts are stored locally from Mercado Libre's public webfont CDN.
+- Desplazamiento horizontal nativo con scroll snapping de CSS.
+- Los planes se eligen con un control segmentado que lleva sus nombres, y
+  responde a puntero, teclado, flechas, Home y End.
+- Un `IntersectionObserver` mantiene el control en sincronía con la card visible.
+- Con movimiento reducido, el posicionamiento es instantáneo y se quitan las
+  transiciones de opacidad.
+- Las imágenes y los SVG decorativos originales viven en `public/assets/figma`.
+  Los glifos de UI del frame están inline en `src/components/Icon.tsx`.
+- Las fuentes Proxima Nova se guardan localmente desde el CDN público de
+  Mercado Libre.
 
-## Pending source information
+## Información pendiente de la fuente
 
-- The frame includes collapsed FAQ questions but no answers. Questions remain
-  disabled until approved answers are supplied.
-- The back button has no specified previous page and remains disabled.
-- “Elegir Plan” has no destination in the supplied frame. It remains disabled;
-  checkout is outside the current project scope.
+- El frame trae las preguntas del FAQ colapsadas y sin respuestas. El acordeón
+  está implementado; las respuestas se escribieron para el prototipo y están
+  aprobadas, como datos de demostración.
+- El botón Atrás no tiene página anterior definida y permanece deshabilitado.
+- “Elegir plan” no tiene destino en el frame y el checkout está fuera de
+  alcance. En vez de quedar deshabilitado y parecer roto, avisa que no forma
+  parte de este prototipo.
 
-No subscription, payment or FAQ-answer behavior is fabricated.
+No se fabrica comportamiento de suscripción ni de pago.
 
-## Verification
+## Verificación
 
-- Production build passes (`npm run build`).
-- Browser checked at 360, 390 and 412 CSS pixels; no document-level horizontal
-  overflow. All local images load and no console warnings/errors were reported.
-- Verified initial Esencial selection, pointer selection of Total, keyboard
-  navigation, and native horizontal scrolling updating the active indicator.
-- Vertical scrolling preserves the selected plan.
-- Reduced-motion handling is implemented and code-reviewed; OS preference
-  emulation and a physical touchscreen were not tested.
-- The 8px dots have an 8px visual gap, matching Figma, within adjacent 44px
-  selector targets that do not overlap.
+- Build de producción y los doce tests pasan.
+- Sin desbordamiento horizontal a 320 y 375 px, ni errores de consola.
+- Contrastes medidos sobre el par realmente renderizado, con el alfa compuesto
+  sobre su fondo real. El detalle está en “Contraste”.
+- Geometría verificada por DOM: bordes de alineación, gaps, áreas táctiles y
+  posición de las secciones.
+
+Lo que no se verificó, y conviene mirar antes de mostrarlo: que tocar una
+pestaña cambie efectivamente de plan, el desplazamiento suave, Escape en el
+diálogo, `prefers-reduced-motion` real, Firefox —donde recién se nota el arreglo
+de `line-height`, porque no soporta `text-box`— y un lector de pantalla. Las
+animaciones y el `IntersectionObserver` necesitan que la página pinte, y el
+panel de vista previa usado durante el desarrollo no pinta.
 
 ## Desvíos posteriores a la auditoría de interfaz
 
