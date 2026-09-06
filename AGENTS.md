@@ -26,5 +26,3 @@ Shared UI should reuse components.
 Target:
 mobile-first at 360px.
 Also sanity-check 390px and 412px.
-
-Implement both explorations independently so they can be compared.
