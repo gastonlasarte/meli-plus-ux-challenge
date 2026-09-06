@@ -26,7 +26,7 @@
 .payment-methods { padding: var(--space-8) var(--space-4); }
 .payment-methods > h2 { margin-bottom: var(--space-4); text-box: trim-both cap alphabetic; }
 .method-list { background: var(--surface-card); border-radius: var(--radius-surface); box-shadow: var(--shadow-border); }
-.saved-method, .method-option { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-4) var(--space-3); min-height: 64px; position: relative; }
+.saved-method, .method-option { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-4); min-height: 64px; position: relative; }
 .saved-method + .saved-method, .method-option + .method-option { border-top: 1px solid var(--border-subtle); }
 .method-icon { flex: none; display: grid; place-items: center; width: 40px; height: 32px; }
 .method-icon img { width: 40px; height: 32px; object-fit: contain; }
@@ -45,7 +45,7 @@
 .method-actions__panel button { display: block; width: 100%; min-height: 44px; padding: var(--space-3) var(--space-2); background: transparent; color: var(--text-primary); font-size: var(--text-body); text-align: start; border: 0; }
 .method-actions__panel button + button { border-top: 1px solid var(--border-subtle); }
 .add-method-row { position: relative; display: flex; align-items: center; margin-top: var(--space-4); background: var(--surface-card); border-radius: var(--radius-surface); box-shadow: var(--shadow-border); }
-.add-method { display: flex; align-items: center; gap: var(--space-2); flex: 1; min-width: 0; min-height: 64px; padding: var(--space-4) var(--space-3); background: var(--surface-card); border: 0; border-radius: var(--radius-surface); color: var(--action); font-size: var(--text-body); line-height: 1.4; font-weight: 600; text-align: start; }
+.add-method { display: flex; align-items: center; gap: var(--space-2); flex: 1; min-width: 0; min-height: 64px; padding: var(--space-4); background: var(--surface-card); border: 0; border-radius: var(--radius-surface); color: var(--action); font-size: var(--text-body); line-height: 1.4; font-weight: 600; text-align: start; }
 .add-method__icon { flex: none; width: 40px; height: 32px; display: grid; place-items: center; }
 .add-method-row .add-method { padding-inline-end: 0; }
 .payment-info { display: grid; place-items: center; color: var(--action); flex: none; width: var(--target-size); height: var(--target-size); border: 0; background: none; padding: var(--space-3); }
