@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent, Ref } from "react";
-import { Header } from "./components/Header";
 import { PlanCard } from "./components/PlanCard";
 import { plans } from "./data/plans";
 import { faq } from "./data/faq";
@@ -9,6 +8,7 @@ import { Icon } from "./components/Icon";
 import { Toast } from "./components/Toast";
 import { useSnapCarousel } from "./components/useSnapCarousel";
 import { carouselKeyIndex } from "./components/carouselModel";
+import { scrollBehavior } from "./motion";
 
 const asset = (name: string) => `/assets/figma/${name}`;
 
@@ -73,6 +73,33 @@ function PlanCarousel({ onChoose }: { onChoose: () => void }) {
   );
 }
 
+function ScrollCue() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  function goToPlans() {
+    const plans = document.getElementById("plans-title");
+    plans?.scrollIntoView({ behavior: scrollBehavior() });
+    plans?.focus({ preventScroll: true });
+  }
+
+  return (
+    <button
+      className={`scroll-cue${scrolled ? " scroll-cue--gone" : ""}`}
+      type="button"
+      aria-label="Ver los planes"
+      onClick={goToPlans}
+    >
+      <Icon name="chevron" />
+    </button>
+  );
+}
+
 function MarketingZone({ onChoose, heading }: { onChoose: () => void; heading: Ref<HTMLHeadingElement> }) {
   return (
     <section className="marketing" aria-labelledby="plans-title">
@@ -83,6 +110,7 @@ function MarketingZone({ onChoose, heading }: { onChoose: () => void; heading: R
         <img className="marketing__bottom-wave" src={asset("wave-bottom.svg")} alt="" width="752" height="37" />
       </div>
       <img className="hero-art" src={asset("hero.png")} alt="" width="360" height="303" fetchPriority="high" />
+      <ScrollCue />
       <h2 id="plans-title" tabIndex={-1} ref={heading}>Elegí un plan</h2>
       <PlanCarousel onChoose={onChoose} />
     </section>
@@ -142,7 +170,6 @@ export function App() {
   return (
     <div className={`page${notice ? " page--notice" : ""}`}>
       <a className="skip-link" href="#plans-title">Ir a los planes</a>
-      <Header hideOnScroll />
       <main><Hero /><MarketingZone onChoose={() => setNotice(CHECKOUT_FUERA_DE_ALCANCE)} heading={plansHeading} /><FrequentlyAskedQuestions /></main>
       <Legal />
       <Toast message={notice} onDismiss={() => {

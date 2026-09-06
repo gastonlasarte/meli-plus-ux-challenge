@@ -12,9 +12,13 @@ planes y carrusel.
 - Los planes se eligen con un control segmentado que lleva sus nombres, y
   responde a puntero, teclado, flechas, Home y End.
 - Un `IntersectionObserver` mantiene el control en sincronía con la card visible.
-- La barra superior se retrae al bajar y vuelve al subir o cerca del inicio de
-  la página, para dejar el alto al contenido. Con movimiento reducido, el cambio
-  es instantáneo.
+- La landing no lleva barra superior. El frame trae una con Atrás, pero es la
+  primera pantalla y esa flecha no tiene destino: ocupaba alto sin hacer nada.
+- Debajo de la caja, una flecha con una oscilación suave indica que hay más
+  contenido. Es un botón: al tocarla desplaza hasta los planes y deja el foco en
+  el título, igual que el enlace de salto. Se desvanece apenas empieza el
+  desplazamiento y no vuelve hasta el inicio de la página. Con movimiento
+  reducido no oscila.
 - Con movimiento reducido, el posicionamiento es instantáneo y se quitan las
   transiciones de opacidad.
 - Las imágenes y los SVG decorativos originales viven en `public/assets/figma`.
@@ -27,7 +31,6 @@ planes y carrusel.
 - El frame trae las preguntas del FAQ colapsadas y sin respuestas. El acordeón
   está implementado; las respuestas se escribieron para el prototipo y están
   aprobadas, como datos de demostración.
-- El botón Atrás no tiene página anterior definida y permanece deshabilitado.
 - “Elegir plan” no tiene destino en el frame y el checkout está fuera de
   alcance. En vez de quedar deshabilitado y parecer roto, avisa que no forma
   parte de este prototipo.

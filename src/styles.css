@@ -36,7 +36,7 @@ strong { font-weight: 700; }
 .page { max-width: var(--page-width); margin-inline: auto; background: var(--surface); overflow: clip; }
 .page--notice { padding-block-end: var(--toast-clearance); }
 
-.hero { background: var(--yellow); padding: 104px 16px 224px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.hero { background: var(--yellow); padding: calc(104px + env(safe-area-inset-top, 0px)) 16px 224px; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .meli-logo { flex: none; }
 .hero h1 { font-size: var(--text-display); font-weight: 600; line-height: 1.25; text-align: center; text-box: trim-both cap alphabetic; }
 .hero h1 strong { font-weight: 800; }
@@ -51,6 +51,12 @@ strong { font-weight: 700; }
 .marketing__bottom-wave { height: 36.9px; bottom: 11.8px; transform: rotate(180deg); }
 .marketing__bottom-layers { height: 42.6px; bottom: 6.2px; }
 .hero-art { position: absolute; top: -159.75px; left: 50%; transform: translateX(-50%); width: 360px; height: 303px; pointer-events: none; }
+/* Indicador de scroll: cae en el hueco entre la caja y el título de planes. */
+.scroll-cue { position: absolute; top: 160px; left: 50%; translate: -50%; display: grid; place-items: center; width: var(--target-size); height: var(--target-size); padding: 0; border: 0; border-radius: 50%; background: none; color: var(--text-over-dark); animation: scroll-cue 1.4s ease-in-out infinite alternate; transition: opacity 200ms ease-out, visibility 200ms; }
+.scroll-cue .icon { rotate: 90deg; }
+.scroll-cue--gone { opacity: 0; visibility: hidden; }
+@keyframes scroll-cue { from { translate: -50% 0; } to { translate: -50% 6px; } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
 .marketing h2 { padding-inline: 16px; margin-block-end: 16px; font-size: var(--text-heading); font-weight: 600; line-height: 1.25; text-box: trim-both cap alphabetic; color: var(--text-over-dark); }
 
 .carousel { position: relative; }
