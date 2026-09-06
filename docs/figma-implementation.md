@@ -59,9 +59,9 @@ panel de vista previa usado durante el desarrollo no pinta.
 Todo lo de esta sección está aprobado (2026-09-05).
 
 La landing ya no reproduce el copy del frame palabra por palabra. Toda la interfaz
-habla una sola voz —voseo argentino, el registro que ya fijaban `content.md` y
-`payment-flow.md`— porque el producto cambiaba de dialecto al pasar de la landing
-a Details. Cambios de copy respecto del frame:
+habla una sola voz —voseo argentino, el registro que ya fijaba la especificación
+previa y que sigue el flujo de pagos— porque el producto cambiaba de dialecto al
+pasar de la landing a Details. Cambios de copy respecto del frame:
 
 - `Consigue` → `Conseguí`, `Elige un plan` → `Elegí un plan`, `Disfruta` → `Disfrutá`,
   `Ahorra` / `haz` → `Ahorrá` / `hacé`, `Consulta` → `Consultá`.
@@ -89,8 +89,8 @@ También se desvían del frame, por accesibilidad:
   porque es la acción principal de la landing.
 - Los tamaños de texto siguen la escala por rol de `tokens.css`; el piso es 12px.
 - Los dos puntos indicadores pasan a un control segmentado con los nombres de
-  los planes, arriba del riel: `acceptance.md` pide que Esencial y Total sean
-  explícitos antes de interactuar, y dos puntos anónimos no lo son.
+  los planes, arriba del riel: la especificación previa pide que Esencial y Total
+  sean explícitos antes de interactuar, y dos puntos anónimos no lo son.
 - En Details, la card de suscripción arranca colapsada y lleva el cobro en su
   pie: una sola card que dice qué plan, que está activo, cuánto cuesta y cuándo
   se cobra. El contenido del plan queda detrás de `Ver más`.

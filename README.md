@@ -36,14 +36,12 @@ npm run build     # build de producción
 
 ## Documentación
 
-- [`docs/product.md`](docs/product.md) — contexto y objetivos.
 - [`docs/figma-implementation.md`](docs/figma-implementation.md) — qué sigue al
   frame original, en qué se desvía y por qué, incluido el racional de contraste.
 - [`docs/payment-flow.md`](docs/payment-flow.md) — el flujo de pagos, con la
   priorización de las iteraciones y el copy completo.
-- [`docs/ux-spec.md`](docs/ux-spec.md), [`docs/acceptance.md`](docs/acceptance.md),
-  [`docs/content.md`](docs/content.md) — especificación previa de las
-  exploraciones B1/B2, conservada como antecedente.
+
+Las exploraciones previas B1/B2 no se documentan acá: se muestran en imágenes.
 
 ## Sobre los assets
 

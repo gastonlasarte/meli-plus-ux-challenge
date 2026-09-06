@@ -11,10 +11,8 @@ Priorities:
 5. code simplicity
 
 Read before making changes:
-- docs/product.md
-- docs/ux-spec.md
-- docs/content.md
-- docs/acceptance.md
+- docs/figma-implementation.md
+- docs/payment-flow.md
 
 Do not:
 - invent product requirements;
