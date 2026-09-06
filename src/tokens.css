@@ -61,6 +61,7 @@
   --layer-menu: 3;
   --layer-header: 4;
   --layer-notice: 5;
+  --header-slide-duration: 200ms;
   --toast-enter-duration: 180ms;
   --toast-exit-duration: 120ms;
   --toast-enter-distance: 8px;

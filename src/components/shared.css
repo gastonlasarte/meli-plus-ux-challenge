@@ -1,4 +1,6 @@
-.top-bar { position: sticky; top: 0; z-index: var(--layer-header); flex: none; background: var(--yellow); padding-top: env(safe-area-inset-top, 0px); }
+.top-bar { position: sticky; top: 0; z-index: var(--layer-header); flex: none; background: var(--yellow); padding-top: env(safe-area-inset-top, 0px); transition: transform var(--header-slide-duration) ease; }
+.top-bar--hidden { transform: translateY(-100%); }
+@media (prefers-reduced-motion: reduce) { .top-bar { transition: none; } }
 .top-bar__navigation { min-height: var(--header-height); display: flex; align-items: center; padding-inline: 6px; }
 .back-button { width: 44px; height: 44px; padding: 10px; border: 0; background: transparent; }
 

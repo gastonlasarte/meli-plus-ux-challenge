@@ -59,6 +59,7 @@ export function PaymentFlow() {
         title={selecting ? "Medio de pago alternativo" : "Detalle"}
         onBack={selecting ? () => close() : undefined}
         headingRef={heading}
+        hideOnScroll={!selecting}
       />
 
       {selecting ? (

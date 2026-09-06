@@ -142,7 +142,7 @@ export function App() {
   return (
     <div className={`page${notice ? " page--notice" : ""}`}>
       <a className="skip-link" href="#plans-title">Ir a los planes</a>
-      <Header />
+      <Header hideOnScroll />
       <main><Hero /><MarketingZone onChoose={() => setNotice(CHECKOUT_FUERA_DE_ALCANCE)} heading={plansHeading} /><FrequentlyAskedQuestions /></main>
       <Legal />
       <Toast message={notice} onDismiss={() => {

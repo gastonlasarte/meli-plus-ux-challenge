@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "test": "node --test src/payment/model.test.mjs src/components/carouselModel.test.mjs"
+    "test": "node --test src/payment/model.test.mjs src/components/carouselModel.test.mjs src/components/headerModel.test.mjs"
   },
   "dependencies": {
     "react": "latest",
