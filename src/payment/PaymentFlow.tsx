@@ -6,10 +6,11 @@ import { Button } from "../components/Button";
 import { Icon } from "../components/Icon";
 import { Toast } from "../components/Toast";
 import { plans } from "../data/plans";
-import { initialPayment, methods, removeAlternate, saveAlternate } from "./model";
+import { initialPayment, methods, removeAlternate, saveAlternate, subscription } from "./model";
 import type { MethodId } from "./model";
 
-const explanation = "Lo usaremos si no podemos cobrar tu suscripción con el medio principal.";
+const explanation = "Lo usaremos solo si no podemos cobrar tu suscripción con el medio principal.";
+const stake = "Si falla el cobro con tu medio principal y no tenés un alternativo, tu suscripción se cancela y perdés los beneficios.";
 const currentPlan = {
   ...plans[0],
   description: <>Estás disfrutando de las mejores películas, series y música, además de todos los beneficios de <strong>Meli+ Esencial.</strong></>,
@@ -21,6 +22,8 @@ function MethodIcon({ method }: { method: typeof methods[number] }) {
 
 export function PaymentFlow() {
   const [payment, setPayment] = useState(initialPayment);
+  const search = window.location.search;
+  const chargeFailed = new URLSearchParams(search).get("cobro") === "fallido";
   const [selecting, setSelecting] = useState(window.location.pathname === "/details/payment-methods");
   const [selection, setSelection] = useState<MethodId | "">("");
   const [error, setError] = useState("");
@@ -108,7 +111,7 @@ export function PaymentFlow() {
     setNotice("");
     setMenuOpen(false);
     ownsHistoryEntry.current = true;
-    window.history.pushState(null, "", "/details/payment-methods");
+    window.history.pushState(null, "", `/details/payment-methods${search}`);
     setSelecting(true);
   }
 
@@ -116,7 +119,7 @@ export function PaymentFlow() {
     focusTarget.current = target;
     if (ownsHistoryEntry.current) window.history.back();
     else {
-      window.history.replaceState(null, "", "/details");
+      window.history.replaceState(null, "", `/details${search}`);
       setSelecting(false);
     }
   }
@@ -181,15 +184,26 @@ export function PaymentFlow() {
       </> : <>
         <main>
           <section className="subscription-area" aria-labelledby="subscription-heading">
-            {!alternate && !bannerDismissed && <aside className="payment-invitation" aria-labelledby="invitation-title">
-              <button className="payment-close" type="button" aria-label="Cerrar sugerencia" onClick={() => { setBannerDismissed(true); paymentsHeading.current?.focus(); }}><Icon name="close" size={20} /></button>
-              <h2 id="invitation-title">Agregá un medio de pago alternativo</h2>
-              <p>{explanation}</p>
-              <Button variant="dark" id="banner-add-alternate" className="payment-primary" type="button" onClick={openSelector}>Agregar como alternativo</Button>
-              <p className="invitation-support">O contactá a <button type="button" disabled>soporte</button>.</p>
-            </aside>}
+            {/* Un cobro fallido es un hecho de la cuenta, no una sugerencia: no se descarta. */}
+            {!alternate && (chargeFailed
+              ? <aside className="payment-invitation payment-invitation--failed" aria-labelledby="invitation-title">
+                  <h2 id="invitation-title">No pudimos cobrar tu suscripción</h2>
+                  <p>Intentamos cobrar {subscription.amount} con tu {primary.name} el {subscription.nextCharge}. Reintentamos el {subscription.retryCharge}. Agregá un medio de pago alternativo para que lo intentemos ahí.</p>
+                  <Button variant="dark" id="banner-add-alternate" className="payment-primary" type="button" onClick={openSelector}>Agregar como alternativo</Button>
+                </aside>
+              : !bannerDismissed && <aside className="payment-invitation" aria-labelledby="invitation-title">
+                  <button className="payment-close" type="button" aria-label="Cerrar sugerencia" onClick={() => { setBannerDismissed(true); paymentsHeading.current?.focus(); }}><Icon name="close" size={20} /></button>
+                  <h2 id="invitation-title">Agregá un medio de pago alternativo</h2>
+                  <p>{stake}</p>
+                  <Button variant="dark" id="banner-add-alternate" className="payment-primary" type="button" onClick={openSelector}>Agregar como alternativo</Button>
+                  <p className="invitation-support">O contactá a <button type="button" disabled>soporte</button>.</p>
+                </aside>)}
             <div className="subscription-content">
               <h2 id="subscription-heading">Tu suscripción actual</h2>
+              <div className="subscription-billing">
+                <div><span>Suscripción mensual</span><strong>{subscription.amount}</strong></div>
+                <p>{chargeFailed ? `Reintentamos el cobro el ${subscription.retryCharge}` : `Próximo cobro: ${subscription.nextCharge}`}</p>
+              </div>
               <PlanCard plan={currentPlan} subscribed />
               <div className="service-code">
                 <div><div className="service-code__value"><strong>314159265358</strong><button type="button" aria-label="Copiar código de servicio" onClick={async () => { try { await navigator.clipboard.writeText("314159265358"); setNotice("Copiaste el código de servicio."); } catch { setNotice("No pudimos copiar el código. Seleccionalo para copiarlo."); } }}><Icon name="copy" size={20} /></button></div><p>Código de servicio Disney+ / Star+</p></div>
@@ -200,6 +214,9 @@ export function PaymentFlow() {
           <div className="subscription-waves" aria-hidden="true"><img className="subscription-waves__layers" src="/assets/payment/detail-wave-layers.svg" width="752" height="43" alt="" /><img className="subscription-waves__main" src="/assets/payment/detail-wave.svg" width="752" height="37" alt="" /></div>
           <section className="payment-methods" aria-labelledby="payment-methods">
             <h2 id="payment-methods" tabIndex={-1} ref={paymentsHeading}>Medios de pago</h2>
+            <p className="payment-status">{alternate
+              ? "Tu suscripción tiene respaldo. Si falla el cobro con el principal, lo intentamos con el alternativo."
+              : "Tu suscripción no tiene respaldo. Si falla el cobro, se cancela."}</p>
             <div className="method-list">
               <div className="saved-method"><MethodIcon method={primary} /><div className="method-text"><strong>{primary.name}</strong><span>{primary.detail}</span><div className="method-tags"><span className="method-tag">Principal</span><span className="method-tag method-tag--valid">Habilitada</span></div></div></div>
               {alternate && <div className="saved-method"><MethodIcon method={alternate} /><div className="method-text"><strong>{alternate.name}</strong><span>{alternate.detail}</span><span className="method-tag method-tag--alternate">Alternativo</span></div>
@@ -211,7 +228,6 @@ export function PaymentFlow() {
             </div>
             {!alternate && <div className="add-method-row"><button id="add-alternate" className="add-method" type="button" onClick={openSelector}><span className="add-method__icon"><Icon name="add" strokeWidth={2} /></span>Agregar un medio de pago alternativo</button><button ref={helpButton} className="payment-info" type="button" aria-label="Cómo funciona el medio alternativo" aria-expanded={helpOpen} aria-controls="alternate-help" onClick={() => setHelpOpen(!helpOpen)}><Icon name="info" /></button></div>}
             {helpOpen && !alternate && <div className="alternate-help" id="alternate-help"><p>{explanation}</p><button type="button" onClick={() => { setHelpOpen(false); helpButton.current?.focus(); }}>Entendido</button></div>}
-            {alternate && <p className="alternate-explanation">{explanation}</p>}
           </section>
         </main>
         <footer className="subscription-footer"><p>Podés <button type="button" disabled>cancelar tu suscripción</button> en cualquier momento.</p><button type="button" disabled>Términos y condiciones</button></footer>

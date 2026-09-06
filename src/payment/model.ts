@@ -5,6 +5,15 @@ export const methods = [
   { id: "balance", name: "Dinero en cuenta", detail: "$13.000 disponibles", icon: "mercado-pago.svg" },
 ] as const;
 
+// Datos de demostración del ciclo de cobro. El flujo existe para que un cobro
+// fallido no termine en una cancelación involuntaria, así que el monto y las
+// fechas son parte del caso, no decoración.
+export const subscription = {
+  amount: "$17,90",
+  nextCharge: "15 de septiembre",
+  retryCharge: "18 de septiembre",
+} as const;
+
 export type MethodId = typeof methods[number]["id"];
 type PaymentState = { readonly primary: "visa"; readonly alternate: MethodId | null };
 export const initialPayment: PaymentState = { primary: "visa", alternate: null };

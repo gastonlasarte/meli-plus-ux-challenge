@@ -109,9 +109,53 @@ Los cambios compartidos se trabajan en payment-change (incluida su ruta `/`);
 feature/landing conserva su commit anterior hasta aprobar el traslado.
 `main` no se modifica.
 
+## Objetivo del board original
+
+`references/original-meli/original-board.pdf` fija el KPI de esta sección:
+**mejorar el ratio de cancelaciones involuntarias por overdue (error/falta de
+cobro)**, con el objetivo de experiencia de que las personas suscriptas carguen
+un medio de pago alternativo.
+
+La primera versión de este flujo neutralizó el riesgo en tres capas a la vez:
+movió el vencimiento de la Visa a 10/28, sacó la consecuencia del copy y omitió
+el contexto de cobro. Contra un KPI que trata justamente del riesgo, eso dejaba
+el flujo sin motivo visible. Los tres se repusieron, calibrados: se nombra la
+consecuencia una vez, sin alarmismo, y no se presenta la ausencia de respaldo
+como un perfil incompleto.
+
+## Estado de cobro fallido
+
+`/details?cobro=fallido` renderiza la variante a la que llega alguien desde el
+aviso de cobro rechazado. Diferencias con el estado normal:
+
+- La invitación se reemplaza por el aviso de falla, **que no se puede descartar**:
+  un cobro rechazado es un hecho de la cuenta, no una sugerencia.
+- El renglón de cobro pasa de `Próximo cobro` a `Reintentamos el cobro el ...`.
+- El query se conserva al entrar y volver de la pantalla de selección.
+
+## Comunicaciones
+
+No se construyen: no hay backend y el entregable formal es Figma. El copy queda
+acá para armarlas ahí. Son la palanca principal del KPI, porque la persona en
+riesgo no está en la app cuando el cobro falla.
+
+Preventiva:
+
+- Asunto: “Agregá un medio de pago alternativo a Meli+”.
+- Preheader: “Si falla un cobro, lo intentamos con el alternativo y no perdés los beneficios.”
+- Push: “Agregá un medio de pago alternativo a Meli+ y no te quedes sin beneficios si falla un cobro.”
+
+Post-falla:
+
+- Asunto: “No pudimos cobrar tu suscripción a Meli+”.
+- Cuerpo: “Intentamos cobrar $17,90 con tu Visa terminada en 8743 y no pudimos.
+  Vamos a reintentar el 18 de septiembre. Agregá un medio de pago alternativo
+  para que lo intentemos ahí si vuelve a fallar.”
+- CTA: “Agregar un medio de pago alternativo”.
+
 ## Fuera de alcance
 
-- Correo y notificaciones de entrada.
+- Envío real de correo y notificaciones; el copy queda especificado arriba.
 - Carga de una tarjeta nueva; el botón de Figma se conserva deshabilitado.
 - Cambio o eliminación del principal.
 - Soporte, cancelación, términos y ayuda de código de servicio:
