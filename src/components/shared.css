@@ -18,7 +18,7 @@
 .price { display: flex; flex-direction: column; gap: var(--space-1); }
 .price strong { font-size: var(--text-display); line-height: 1.25; text-box: trim-both cap alphabetic; }
 .price span { font-size: var(--text-caption); line-height: 1.25; text-box: trim-both cap alphabetic; }
-.choose-plan { padding-inline: var(--space-8); white-space: nowrap; }
+.choose-plan { flex: 1; padding-inline: var(--space-8); }
 .plan-card--total { background: var(--surface-over-dark); color: var(--text-over-dark); }
 .plan-card--total .plan-card__benefits { padding: var(--space-4); gap: var(--space-4); }
 .plan-card--total .plan-card__benefits img { border-radius: var(--radius-control); }
@@ -40,7 +40,8 @@
 .service-carousel__slide { flex: 0 0 100%; min-width: 0; position: relative; scroll-snap-align: start; scroll-snap-stop: always; user-select: none; }
 .service-carousel__image { width: 100%; height: 100%; object-fit: cover; object-position: center top; pointer-events: none; }
 .service-carousel__slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(transparent 27%, rgb(18 18 18 / 0.8)); pointer-events: none; }
-.service-carousel__brand { position: absolute; bottom: var(--space-2); inset-inline-start: var(--space-2); z-index: 1; pointer-events: none; }
+.service-carousel__brand { position: absolute; bottom: var(--space-2); inset-inline-start: var(--space-2); inset-inline-end: calc(var(--target-size) + var(--space-2)); z-index: 1; display: flex; align-items: center; gap: var(--space-2); pointer-events: none; }
+.service-carousel__brand span { min-width: 0; color: var(--text-over-dark); font-size: var(--text-body); font-weight: 600; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .service-carousel__next { position: absolute; bottom: 0; inset-inline-end: var(--space-1); display: grid; align-items: end; justify-items: center; min-width: var(--target-size); min-height: var(--target-size); padding: 0 var(--space-1) var(--space-2); background: transparent; border: 0; border-radius: var(--radius-control); color: inherit; }
 .service-indicators { display: flex; gap: var(--service-dot-gap); }
 .service-carousel__next:focus-visible { outline-offset: -3px; }

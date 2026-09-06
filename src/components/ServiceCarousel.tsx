@@ -64,8 +64,8 @@ export function ServiceCarousel({ enabled = true }: { enabled?: boolean }) {
         ref={element => { slides.current[index] = element; }} role="group" aria-roledescription="diapositiva"
         aria-label={`${index + 1} de ${services.length}: ${service.name}`} aria-hidden={index !== active}>
         <img className="service-carousel__image" src={`/assets/services/${service.id}-cover.png`}
-          alt={service.description} width="320" height="176" draggable="false" loading={index < 2 ? "eager" : "lazy"} />
-        <div className="service-carousel__brand"><ServiceLogo service={service.id} /></div>
+          alt="" width="320" height="176" draggable="false" loading={index < 2 ? "eager" : "lazy"} />
+        <div className="service-carousel__brand"><ServiceLogo service={service.id} /><span>{service.description}</span></div>
       </div>)}
     </div>
     {/* Compact dots are indicators inside one generous control, not four tiny hit areas. */}

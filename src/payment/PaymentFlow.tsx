@@ -197,7 +197,7 @@ export function PaymentFlow() {
               </div>
             </fieldset>
             {error && <p className="selection-error" id="selection-error">{error}</p>}
-            <button className="add-method selection-new" type="button" disabled><span className="add-method__icon"><Icon name="add" strokeWidth={2} /></span>Agregar un nuevo medio de pago</button>
+            <button className="add-method selection-new" type="button" disabled><span className="add-method__icon"><Icon name="add" /></span>Agregar un nuevo medio de pago</button>
             <Button className="payment-primary selection-submit" type="submit">{payment.alternate ? "Guardar alternativo" : "Agregar como alternativo"}</Button>
           </form>
         </main>
@@ -249,7 +249,7 @@ export function PaymentFlow() {
                 </div>
               </div>}
             </div>
-            {!alternate && <div className="add-method-row"><button id="add-alternate" className="add-method" type="button" onClick={openSelector}><span className="add-method__icon"><Icon name="add" strokeWidth={2} /></span>Agregar un medio de pago alternativo</button><button ref={helpButton} className="payment-info" type="button" aria-label="Cómo funciona el medio alternativo" aria-expanded={helpOpen} aria-controls="alternate-help" onClick={() => setHelpOpen(!helpOpen)}><Icon name="info" /></button></div>}
+            {!alternate && <div className="add-method-row"><button id="add-alternate" className="add-method" type="button" onClick={openSelector}><span className="add-method__icon"><Icon name="add" /></span>Agregar un medio de pago alternativo</button><button ref={helpButton} className="payment-info" type="button" aria-label="Cómo funciona el medio alternativo" aria-expanded={helpOpen} aria-controls="alternate-help" onClick={() => setHelpOpen(!helpOpen)}><Icon name="info" /></button></div>}
             {helpOpen && !alternate && <div className="alternate-help" id="alternate-help"><p>{explanation}</p><button type="button" onClick={() => { setHelpOpen(false); helpButton.current?.focus(); }}>Entendido</button></div>}
           </section>
         </main>

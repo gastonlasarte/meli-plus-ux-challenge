@@ -35,16 +35,15 @@ export function PlanCard({ plan, subscribed = false, active = true, onChoose, co
     </div>
     <div className="plan-card__header">
       <div className="subscription-title"><h3 id={titleId}>{plan.name}</h3>{subscribed && <span className="subscription-badge">Activa</span>}</div>
+      {!subscribed && <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>}
       <p id={aboutId} hidden={hidden}>{plan.description}</p>
     </div>
     <div id={benefitsId} hidden={hidden}><BenefitsList benefits={plan.benefits} /></div>
     <footer className="plan-card__footer">
-      {billing
-        ? <div className="plan-card__billing">
-            <div><span>Suscripción mensual</span><strong>{plan.price}</strong></div>
-            <p>{billing}</p>
-          </div>
-        : <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>}
+      {billing && <div className="plan-card__billing">
+        <div><span>Suscripción mensual</span><strong>{plan.price}</strong></div>
+        <p>{billing}</p>
+      </div>}
       {!subscribed && <Button className="choose-plan" disabled={!onChoose} onClick={onChoose}>Elegir plan</Button>}
     </footer>
     {collapsible && <button className="plan-card__toggle" type="button" aria-expanded={expanded}
