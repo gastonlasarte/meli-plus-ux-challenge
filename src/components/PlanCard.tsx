@@ -16,8 +16,8 @@ export function BenefitsList({ benefits }: { benefits: Plan["benefits"] }) {
   </ul>;
 }
 
-export function PlanCard({ plan, subscribed = false, active = true, onChoose, collapsible = false }: {
-  plan: Plan; subscribed?: boolean; active?: boolean; onChoose?: () => void; collapsible?: boolean;
+export function PlanCard({ plan, subscribed = false, active = true, onChoose, collapsible = false, billing }: {
+  plan: Plan; subscribed?: boolean; active?: boolean; onChoose?: () => void; collapsible?: boolean; billing?: string;
 }) {
   const titleId = useId();
   const mediaId = useId();
@@ -39,7 +39,12 @@ export function PlanCard({ plan, subscribed = false, active = true, onChoose, co
     </div>
     <div id={benefitsId} hidden={hidden}><BenefitsList benefits={plan.benefits} /></div>
     <footer className="plan-card__footer">
-      <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>
+      {billing
+        ? <div className="plan-card__billing">
+            <div><span>Suscripción mensual</span><strong>{plan.price}</strong></div>
+            <p>{billing}</p>
+          </div>
+        : <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>}
       {subscribed
         ? <Button variant="text" className="subscription-cancel" disabled>Cancelar suscripción</Button>
         : <Button className="choose-plan" disabled={!onChoose} onClick={onChoose}>Elegir plan</Button>}

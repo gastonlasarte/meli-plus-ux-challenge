@@ -4,7 +4,6 @@
 .subscription-area { --focus-ring: var(--text-over-dark); padding: var(--space-8) var(--space-4) var(--space-4); color: var(--text-over-dark); background: var(--subscription-gradient); }
 .payment-invitation { --focus-ring: var(--action); position: relative; padding: var(--space-6) var(--space-4) var(--space-4); background: var(--surface-card); color: var(--text-primary); border-radius: var(--radius-surface); }
 .payment-invitation h2 { padding-inline-end: var(--space-6); }
-.payment-invitation--failed h2 { padding-inline-end: 0; color: var(--danger); }
 .payment-invitation > p:not(.invitation-support) { margin-top: var(--space-3); font-size: var(--text-body); line-height: 1.4; }
 .payment-primary { display: block; width: 100%; }
 .payment-invitation > .payment-primary { margin-top: var(--space-6); }
@@ -14,10 +13,6 @@
 .subscription-content { display: flex; flex-direction: column; gap: var(--space-4); }
 .payment-invitation + .subscription-content { margin-top: var(--space-10); }
 .subscription-content > h2 { text-box: trim-both cap alphabetic; }
-.subscription-billing { display: flex; flex-direction: column; gap: var(--space-1); padding: var(--space-3) var(--space-4); border-radius: var(--radius-card); background: var(--surface-over-dark); }
-.subscription-billing div { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-2); font-size: var(--text-body); }
-.subscription-billing strong { font-size: var(--text-heading); font-weight: 600; }
-.subscription-billing p { font-size: var(--text-caption); }
 .service-code { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-card); background: var(--surface-over-dark); }
 .service-code__value { display: flex; align-items: center; gap: var(--space-1); }
 .service-code__value strong { font-size: var(--text-display); line-height: 1; }

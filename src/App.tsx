@@ -22,7 +22,7 @@ function Hero() {
 }
 
 function PlanCarousel({ onChoose }: { onChoose: () => void }) {
-  const { active, changed, rail, slides, select } = useSnapCarousel(plans.length, 1);
+  const { active, changed, rail, slides, select } = useSnapCarousel(plans.length, 0);
   const indicators = useRef<(HTMLButtonElement | null)[]>([]);
 
   const onKeyDown = (event: KeyboardEvent, index: number) => {

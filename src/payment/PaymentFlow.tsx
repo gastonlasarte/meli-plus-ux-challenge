@@ -11,6 +11,7 @@ import type { MethodId } from "./model";
 
 const explanation = "Lo usaremos solo si no podemos cobrar tu suscripción con el medio principal.";
 const outOfScope = (what: string) => `${what} no forma parte de este prototipo.`;
+const serviceCode = "314159265358";
 const stake = "Si falla el cobro con tu medio principal y no tenés un alternativo, tu suscripción se cancela y perdés los beneficios.";
 const currentPlan = {
   ...plans[0],
@@ -31,6 +32,7 @@ export function PaymentFlow() {
   const [bannerDismissed, setBannerDismissed] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
+  const [codeHelpOpen, setCodeHelpOpen] = useState(false);
   const [removeOpen, setRemoveOpen] = useState(false);
   const [notice, setNotice] = useState("");
   const heading = useRef<HTMLHeadingElement>(null);
@@ -38,6 +40,8 @@ export function PaymentFlow() {
   const menu = useRef<HTMLDivElement>(null);
   const modifyButton = useRef<HTMLButtonElement>(null);
   const helpButton = useRef<HTMLButtonElement>(null);
+  const codeHelpButton = useRef<HTMLButtonElement>(null);
+  const code = useRef<HTMLElement>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const cancelButton = useRef<HTMLButtonElement>(null);
   const firstOption = useRef<HTMLInputElement>(null);
@@ -66,13 +70,14 @@ export function PaymentFlow() {
 
   useLayoutEffect(() => {
     document.title = selecting ? "Elegí un medio de pago alternativo | Meli+" : "Detalle de tu suscripción | Meli+";
+    const smooth = matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" as const : "smooth" as const;
     if (focusTarget.current === "none") return;
     if (selecting) {
       window.scrollTo({ top: 0, behavior: "instant" });
       heading.current?.focus({ preventScroll: true });
     } else if (focusTarget.current === "payments") {
       paymentsHeading.current?.focus({ preventScroll: true });
-      paymentsHeading.current?.scrollIntoView({ block: "center", behavior: "instant" });
+      paymentsHeading.current?.scrollIntoView({ block: "center", behavior: smooth });
     } else {
       window.scrollTo({ top: returnScroll.current, behavior: "instant" });
       const returnElement = document.getElementById(opener.current?.id ?? "") ?? modifyButton.current ?? paymentsHeading.current;
@@ -139,6 +144,21 @@ export function PaymentFlow() {
     closeSelector("payments");
   }
 
+  async function copyCode() {
+    try {
+      await navigator.clipboard.writeText(serviceCode);
+      setNotice("Copiaste el código de servicio.");
+      return;
+    } catch {
+      const range = document.createRange();
+      if (code.current) range.selectNodeContents(code.current);
+      const selection = getSelection();
+      selection?.removeAllRanges();
+      selection?.addRange(range);
+      setNotice("No pudimos copiar el código. Te lo dejamos seleccionado para que lo copies.");
+    }
+  }
+
   function cancelRemoval() {
     // Close the native modal before focusing the no-longer-inert background.
     dialog.current?.close();
@@ -153,7 +173,7 @@ export function PaymentFlow() {
     setNotice("Eliminaste el medio de pago alternativo de esta suscripción.");
     requestAnimationFrame(() => {
       paymentsHeading.current?.focus({ preventScroll: true });
-      paymentsHeading.current?.scrollIntoView({ block: "center", behavior: "instant" });
+      paymentsHeading.current?.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" });
     });
   }
 
@@ -186,13 +206,14 @@ export function PaymentFlow() {
         <main>
           <section className="subscription-area" aria-labelledby="subscription-heading">
             {/* Un cobro fallido es un hecho de la cuenta, no una sugerencia: no se descarta. */}
-            {!alternate && (chargeFailed
+            {!alternate && !bannerDismissed && (chargeFailed
               ? <aside className="payment-invitation payment-invitation--failed" aria-labelledby="invitation-title">
+                  <button className="payment-close" type="button" aria-label="Cerrar aviso" onClick={() => { setBannerDismissed(true); paymentsHeading.current?.focus(); }}><Icon name="close" size={20} /></button>
                   <h2 id="invitation-title">No pudimos cobrar tu suscripción</h2>
                   <p>Intentamos cobrar {subscription.amount} con tu {primary.name} el {subscription.nextCharge}. Reintentamos el {subscription.retryCharge}. Agregá un medio de pago alternativo para que lo intentemos ahí.</p>
                   <Button variant="dark" id="banner-add-alternate" className="payment-primary" type="button" onClick={openSelector}>Agregar como alternativo</Button>
                 </aside>
-              : !bannerDismissed && <aside className="payment-invitation" aria-labelledby="invitation-title">
+              : <aside className="payment-invitation" aria-labelledby="invitation-title">
                   <button className="payment-close" type="button" aria-label="Cerrar sugerencia" onClick={() => { setBannerDismissed(true); paymentsHeading.current?.focus(); }}><Icon name="close" size={20} /></button>
                   <h2 id="invitation-title">Agregá un medio de pago alternativo</h2>
                   <p>{stake}</p>
@@ -201,15 +222,16 @@ export function PaymentFlow() {
                 </aside>)}
             <div className="subscription-content">
               <h2 id="subscription-heading">Tu suscripción actual</h2>
-              <div className="subscription-billing">
-                <div><span>Suscripción mensual</span><strong>{subscription.amount}</strong></div>
-                <p>{chargeFailed ? `Reintentamos el cobro el ${subscription.retryCharge}` : `Próximo cobro: ${subscription.nextCharge}`}</p>
-              </div>
-              <PlanCard plan={currentPlan} subscribed collapsible />
+              <PlanCard plan={currentPlan} subscribed collapsible
+                billing={chargeFailed ? `Reintentamos el cobro el ${subscription.retryCharge}` : `Próximo cobro: ${subscription.nextCharge}`} />
               <div className="service-code">
-                <div><div className="service-code__value"><strong>314159265358</strong><button type="button" aria-label="Copiar código de servicio" onClick={async () => { try { await navigator.clipboard.writeText("314159265358"); setNotice("Copiaste el código de servicio."); } catch { setNotice("No pudimos copiar el código. Seleccionalo para copiarlo."); } }}><Icon name="copy" size={20} /></button></div><p>Código de servicio Disney+ / Star+</p></div>
-                <button className="service-help" type="button" disabled aria-label="Ayuda con el código de servicio"><Icon name="help" size={24} /></button>
+                <div><div className="service-code__value"><strong ref={code}>{serviceCode}</strong><button type="button" aria-label="Copiar código de servicio" onClick={copyCode}><Icon name="copy" size={20} /></button></div><p>Código de servicio Disney+ / Star+</p></div>
+                <button ref={codeHelpButton} className="service-help" type="button" aria-label="Qué es el código de servicio" aria-expanded={codeHelpOpen} aria-controls="service-code-help" onClick={() => setCodeHelpOpen(!codeHelpOpen)}><Icon name="help" size={24} /></button>
               </div>
+              {codeHelpOpen && <div className="alternate-help" id="service-code-help">
+                <p>Es el código que te piden Disney+ y Star+ para activar tu beneficio. Lo usás una sola vez, al crear tu cuenta o al vincular una que ya tengas.</p>
+                <button type="button" onClick={() => { setCodeHelpOpen(false); codeHelpButton.current?.focus(); }}>Entendido</button>
+              </div>}
             </div>
           </section>
           <div className="subscription-waves" aria-hidden="true"><img className="subscription-waves__layers" src="/assets/payment/detail-wave-layers.svg" width="752" height="43" alt="" /><img className="subscription-waves__main" src="/assets/payment/detail-wave.svg" width="752" height="37" alt="" /></div>

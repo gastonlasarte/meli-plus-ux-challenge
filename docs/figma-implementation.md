@@ -4,7 +4,8 @@ Branch: `figma/implementation`
 
 Source: https://www.figma.com/design/3iU60ByWEkvtF8qQGl54ac/HISP---Challenge-UX-tech-3?node-id=40000024-493
 
-Frame: Plan Selection, 360 × 1975. Esencial is selected initially.
+Frame: Plan Selection, 360 × 1975. El frame abre en Esencial; la landing abre
+en Total, por decisión de producto: es el plan hacia el que se empuja.
 
 This branch follows the supplied Figma frame, including its copy, prices, assets,
 plan order and carousel. The earlier B1/B2 requirements and copy remain preserved
@@ -76,6 +77,12 @@ También se desvían del frame, por accesibilidad:
   La excepción es `Elegir plan`: queda habilitado y explica el alcance en un toast,
   porque es la acción principal de la landing.
 - Los tamaños de texto siguen la escala por rol de `tokens.css`; el piso es 12px.
+- Los dos puntos indicadores pasan a un control segmentado con los nombres de
+  los planes, arriba del riel: `acceptance.md` pide que Esencial y Total sean
+  explícitos antes de interactuar, y dos puntos anónimos no lo son.
+- En Details, la card de suscripción arranca colapsada y lleva el cobro en su
+  pie: una sola card que dice qué plan, que está activo, cuánto cuesta y cuándo
+  se cobra. El contenido del plan queda detrás de `Ver más`.
 
 ### Iconos
 
