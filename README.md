@@ -41,8 +41,6 @@ npm run build     # build de producción
 - [`docs/payment-flow.md`](docs/payment-flow.md) — el flujo de pagos, con la
   priorización de las iteraciones y el copy completo.
 
-Las exploraciones previas B1/B2 no se documentan acá: se muestran en imágenes.
-
 ## Sobre los assets
 
 Las marcas, tipografías e imágenes de `public/assets` son de sus respectivos

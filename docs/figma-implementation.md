@@ -1,17 +1,10 @@
 # Implementación del frame de Figma
 
-Branch: `figma/implementation`
-
-Fuente: https://www.figma.com/design/3iU60ByWEkvtF8qQGl54ac/HISP---Challenge-UX-tech-3?node-id=40000024-493
-
 Frame: Plan Selection, 360 × 1975. El frame abre en Esencial; la landing abre
 en Total, por decisión de producto: es el plan hacia el que se empuja.
 
-Esta branch sigue el frame provisto —copy, precios, assets, orden de planes y
-carrusel—. Los requisitos y el copy anteriores de B1/B2 se conservan en la
-documentación y en el historial, en el commit `Save original B1 and B2
-prototype with project references`; no se incorporan a esta implementación
-visual.
+Esta implementación sigue el frame provisto: copy, precios, assets, orden de
+planes y carrusel.
 
 ## Comportamiento implementado
 
@@ -40,7 +33,7 @@ No se fabrica comportamiento de suscripción ni de pago.
 
 ## Verificación
 
-- Build de producción y los doce tests pasan.
+- Build de producción y los dieciséis tests pasan.
 - Sin desbordamiento horizontal a 320 y 375 px, ni errores de consola.
 - Contrastes medidos sobre el par realmente renderizado, con el alfa compuesto
   sobre su fondo real. El detalle está en “Contraste”.

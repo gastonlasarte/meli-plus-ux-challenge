@@ -2,16 +2,10 @@
 
 ## Fuentes y alcance aprobado
 
-- Figma: https://www.figma.com/design/3iU60ByWEkvtF8qQGl54ac/HISP---Challenge-UX-tech-3?node-id=40000024-824
-- Card superior: nodo `40000024:925`. Details: `40000024:903`.
-- Selección: `40000024:1151`. Gestión y confirmación: `40000024:1430`, `40000024:1560`.
 - Consigna: `references/original-meli/challenge.pdf`, apartado B.
 - Voz: casos en español `references/meli-cases/tiendas-express.pdf` y `fotos-ia.pdf`.
 - Aprobado en conversación: comenzar en Details, principal vigente, sin alternativo,
   voseo argentino, card superior visible y navegación amarilla de Mercado Libre.
-
-Esta especificación corresponde al flujo de pagos. Los documentos anteriores
-sobre B1/B2 y la landing no se reemplazan ni se aplican a este flujo.
 
 ## Rutas y ejecución
 
@@ -134,7 +128,7 @@ caso principal.
   cierre manual devuelve el foco a Medios de pago sin desplazar la página.
 - Volver a Medios de pago después de guardar o eliminar se desplaza suave;
   con movimiento reducido, instantáneo. El resto de las acciones no anima.
-- La tarjeta Total incorpora el carrusel de servicios del nodo `40000024:263`:
+- La tarjeta Total incorpora el carrusel de servicios:
   Disney+, Deezer, Max y Paramount+, en ese orden. Desplazamiento horizontal
   nativo en touch/trackpad, arrastre con mouse y control de avance con teclado.
 - El control de dots del carrusel de servicios ocupa 44 × 44 px: clic, Enter o
@@ -160,7 +154,7 @@ caso principal.
 - `Button.tsx`, `Icon.tsx` y `ServiceLogo.tsx`: controles y assets reutilizables.
 - `src/data/plans.tsx`: datos y copy originales de la landing.
 - `src/tokens.css`: colores semánticos, espaciado, radios, tamaños y capas.
-- Logos del nodo `40000024:946`: caja de 32 × 32 px, radio de 4 px y ajuste de
+- Logos de servicio: caja de 32 × 32 px, radio de 4 px y ajuste de
   imagen por marca. Los archivos originales se guardan en `public/assets/services/`.
 - No se incorporan dependencias nuevas.
 
@@ -225,8 +219,8 @@ Post-falla:
 
 ## Verificación
 
-- Build de producción y doce tests pasan: seis de pagos y seis de navegación,
-  límites de arrastre y recorrido de la demostración.
+- Build de producción y dieciséis tests pasan: seis de pagos, seis de navegación
+  y cuatro de la barra superior, más límites de arrastre y recorrido de la demostración.
 - Prueba de navegador: ingreso desde ambos accesos, validación sin selección,
   alta con teclado, cambio de Mastercard a dinero en cuenta, eliminación y Escape.
 - Revisión visual y de desbordamiento a 360, 390 y 412 px.
