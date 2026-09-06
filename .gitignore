@@ -11,3 +11,7 @@ dist/
 
 # Config local para levantar el preview; no es parte del prototipo.
 .claude/launch.json
+
+# Material de referencia del challenge (Meli, casos y exploraciones originales).
+# Es fuente de consulta local, no parte del entregable.
+references/
