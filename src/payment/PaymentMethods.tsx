@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Ref } from "react";
 import { Icon } from "../components/Icon";
+import { HelpBubble } from "./HelpBubble";
 import { MethodIcon } from "./MethodIcon";
 import { explanation } from "./copy";
 import type { methods } from "./model";
@@ -16,10 +17,8 @@ export function PaymentMethods({ primary, alternate, headingRef, onAdd, onChange
   onRemove: () => void;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [helpOpen, setHelpOpen] = useState(false);
   const menu = useRef<HTMLDivElement>(null);
   const modifyButton = useRef<HTMLButtonElement>(null);
-  const helpButton = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -95,23 +94,9 @@ export function PaymentMethods({ primary, alternate, headingRef, onAdd, onChange
             <span className="add-method__icon"><Icon name="add" /></span>
             Agregar un medio de pago alternativo
           </button>
-          <button
-            ref={helpButton}
-            className="payment-info"
-            type="button"
-            aria-label="Cómo funciona el medio alternativo"
-            aria-expanded={helpOpen}
-            aria-controls="alternate-help"
-            onClick={() => setHelpOpen(!helpOpen)}
-          >
-            <Icon name="info" />
-          </button>
-        </div>
-      )}
-      {helpOpen && !alternate && (
-        <div className="alternate-help" id="alternate-help">
-          <p>{explanation}</p>
-          <button type="button" onClick={() => { setHelpOpen(false); helpButton.current?.focus(); }}>Entendido</button>
+          <HelpBubble id="alternate-help" label="Cómo funciona el medio alternativo" triggerClass="payment-info" icon="info">
+            {explanation}
+          </HelpBubble>
         </div>
       )}
     </section>

@@ -15,7 +15,7 @@
 .subscription-content { display: flex; flex-direction: column; gap: var(--space-4); }
 .payment-invitation + .subscription-content { margin-top: var(--space-10); }
 .subscription-content > h2 { text-box: trim-both cap alphabetic; }
-.service-code { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-card); background: var(--surface-over-dark); }
+.service-code { position: relative; display: flex; justify-content: space-between; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-card); background: var(--surface-over-dark); }
 .service-code__value { display: flex; align-items: center; gap: var(--space-1); }
 .service-code__value strong { font-size: var(--text-display); line-height: 1; }
 .service-code__value button { display: grid; place-items: center; width: var(--target-size); height: var(--target-size); padding: var(--space-3); border: 0; background: none; }
@@ -52,12 +52,18 @@
 .add-method__icon { flex: none; width: 40px; height: 32px; display: grid; place-items: center; }
 .add-method-row .add-method { padding-inline-end: 0; }
 .payment-info { display: grid; place-items: center; color: var(--action); flex: none; width: var(--target-size); height: var(--target-size); border: 0; background: none; padding: var(--space-3); margin-inline-end: var(--space-2); }
-.alternate-help { --focus-ring: var(--text-over-dark); margin-top: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); background: var(--surface-inverse); color: var(--text-over-dark); font-size: var(--text-body); line-height: 1.4; }
-.alternate-help button { border: 0; background: none; color: var(--text-over-dark); padding: var(--space-3) 0 0; min-height: 44px; font-weight: 600; }
+/* Globo flotante: se apoya sobre el contenido en vez de empujarlo, con el pico apuntando al ícono. */
+.help-bubble { --focus-ring: var(--text-over-dark); position: absolute; z-index: var(--layer-menu); inset-inline: 0; padding: var(--space-3) var(--space-4); border-radius: var(--radius-control); background: var(--surface-inverse); color: var(--text-over-dark); font-size: var(--text-body); line-height: 1.4; box-shadow: var(--shadow-overlay); }
+.help-bubble--above { inset-block-end: calc(100% + 8px); }
+.help-bubble--below { inset-block-start: calc(100% + 8px); }
+.help-bubble::after { content: ""; position: absolute; left: var(--caret); width: 10px; height: 10px; background: inherit; rotate: 45deg; translate: -50%; }
+.help-bubble--above::after { inset-block-end: -4px; }
+.help-bubble--below::after { inset-block-start: -4px; }
+.help-bubble button { border: 0; background: none; color: var(--text-over-dark); padding: var(--space-3) 0 0; min-height: 44px; font-weight: 600; }
 /* Entrada al montar; la salida es inmediata porque el nodo se desmonta. */
-.method-actions__panel, .alternate-help { transition: opacity 120ms ease-out; }
+.method-actions__panel, .help-bubble { transition: opacity 120ms ease-out; }
 @starting-style {
-  .method-actions__panel, .alternate-help { opacity: 0; }
+  .method-actions__panel, .help-bubble { opacity: 0; }
 }
 .subscription-footer { padding: var(--space-4) var(--space-4) var(--space-8); border-top: 1px solid var(--border-subtle); font-size: var(--text-caption); line-height: 1.4; text-align: center; padding-block-end: calc(var(--space-8) + env(safe-area-inset-bottom, 0px)); }
 .subscription-footer button { padding: 0; border: 0; background: none; color: var(--action); text-decoration: underline; }

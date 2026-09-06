@@ -1,12 +1,11 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Icon } from "../components/Icon";
+import { HelpBubble } from "./HelpBubble";
 
 const code = "314159265358";
 
 export function ServiceCode({ onNotice }: { onNotice: (message: string) => void }) {
-  const [helpOpen, setHelpOpen] = useState(false);
   const value = useRef<HTMLElement>(null);
-  const helpButton = useRef<HTMLButtonElement>(null);
 
   async function copy() {
     try {
@@ -33,23 +32,9 @@ export function ServiceCode({ onNotice }: { onNotice: (message: string) => void 
         </div>
         <p>Código de servicio Disney+ / Star+</p>
       </div>
-      <button
-        ref={helpButton}
-        className="service-help"
-        type="button"
-        aria-label="Qué es el código de servicio"
-        aria-expanded={helpOpen}
-        aria-controls="service-code-help"
-        onClick={() => setHelpOpen(!helpOpen)}
-      >
-        <Icon name="help" size={24} />
-      </button>
+      <HelpBubble id="service-code-help" label="Qué es el código de servicio" triggerClass="service-help" icon="help">
+        Es el código que te piden Disney+ y Star+ para activar tu beneficio. Lo usás una sola vez, al crear tu cuenta o al vincular una que ya tengas.
+      </HelpBubble>
     </div>
-    {helpOpen && (
-      <div className="alternate-help" id="service-code-help">
-        <p>Es el código que te piden Disney+ y Star+ para activar tu beneficio. Lo usás una sola vez, al crear tu cuenta o al vincular una que ya tengas.</p>
-        <button type="button" onClick={() => { setHelpOpen(false); helpButton.current?.focus(); }}>Entendido</button>
-      </div>
-    )}
   </>;
 }
