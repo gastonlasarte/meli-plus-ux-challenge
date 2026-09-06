@@ -70,6 +70,8 @@ export function PaymentFlow() {
 
   useLayoutEffect(() => {
     document.title = selecting ? "Elegí un medio de pago alternativo | Meli+" : "Detalle de tu suscripción | Meli+";
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content",
+      getComputedStyle(document.documentElement).getPropertyValue("--brand-violet").trim());
     const smooth = matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" as const : "smooth" as const;
     if (focusTarget.current === "none") return;
     if (selecting) {

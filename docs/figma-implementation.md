@@ -73,6 +73,7 @@ Copy nuevo, que el frame no traía:
 También se desvían del frame, por accesibilidad:
 
 - `--action` y `--success` se oscurecen hasta pasar 4.5:1 en todos sus roles.
+  El detalle está en “Contraste” más abajo.
 - Los controles sin destino se pintan como deshabilitados en lugar de a opacidad 1.
   La excepción es `Elegir plan`: queda habilitado y explica el alcance en un toast,
   porque es la acción principal de la landing.
@@ -83,6 +84,39 @@ También se desvían del frame, por accesibilidad:
 - En Details, la card de suscripción arranca colapsada y lleva el cobro en su
   pie: una sola card que dice qué plan, que está activo, cuánto cuesta y cuándo
   se cobra. El contenido del plan queda detrás de `Ver más`.
+
+### Contraste
+
+Dos colores del frame no llegan al mínimo de 4.5:1 que WCAG pide para texto de
+menos de 24px. No es un detalle de implementación: son el color con el que se
+pintan todas las acciones del producto y el que confirma que la suscripción está
+activa.
+
+| Par | Frame | Ahora |
+| --- | --- | --- |
+| `--action` como texto sobre `--surface` | **3.34:1** | 5.39:1 |
+| Texto claro sobre `--action` | **3.61:1** | 5.82:1 |
+| `--action` como texto sobre blanco | **3.64:1** | 5.87:1 |
+| Badge “Activa” sobre `--success` | **3.17:1** | 5.90:1 |
+| Texto del toast sobre `--success` | **3.20:1** | 5.95:1 |
+
+`--action` pasa de `#3483fa` a `#1560cc` y `--success` de `#00a650` a `#00742a`.
+Los dos conservan tono y croma: solo baja la luminosidad, que es la palanca que
+no altera la identidad del color.
+
+Lo que ya cumplía se dejó intacto: `--text-secondary` sobre blanco (4.76:1), el
+chip “Habilitada” (4.84:1) y el rojo de error (6.03:1 como texto, 6.52:1 con
+texto claro encima, que además pasa a ser el rol destructivo del diálogo de
+eliminación).
+
+El anillo de foco se unificó con `--action`, que sobre el amarillo del header da
+4.63:1 contra un mínimo de 3:1 para indicadores. Sobre las superficies violeta y
+oscuras se hereda un anillo claro, porque ahí el azul no llegaría.
+
+Es la desviación del frame que más se defiende sola: detectar que el color de
+acción de la marca no cumple y proponer un valor que sí, con la medición al
+lado, es parte de lo que el ejercicio pide mirar. Todas las mediciones son sobre
+el par realmente renderizado, con el alfa compuesto sobre su fondo real.
 
 ### Iconos
 

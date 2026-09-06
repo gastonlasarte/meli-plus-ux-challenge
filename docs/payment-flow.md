@@ -25,36 +25,94 @@ Prototipo exclusivamente local. El estado vive en memoria y se reinicia al
 recargar. No hay backend, almacenamiento de tarjetas, cobros ni integraciones
 reales. El saldo, identificadores y fechas son datos de demostración.
 
-## Cambios respecto de Figma, por prioridad
+## Priorización de las iteraciones
 
-1. Agregar un alternativo nunca cambia el principal. Visa permanece principal;
-   se puede asociar Mastercard o dinero en cuenta como respaldo.
-2. Conservar la card superior como invitación, sin la amenaza del vencimiento.
-   Su cierre no oculta el acceso persistente de la sección Medios de pago.
-3. Explicar el uso del alternativo antes de elegir, sin depender del tooltip.
-4. Seleccionar con radios y confirmar con una acción explícita. No utilizar
-   “Entendido” como confirmación de una modificación.
-5. Volver a Details, mostrar el rol Alternativo y feedback persistente descartable.
-6. Gestión secundaria: cambiar y eliminar únicamente el alternativo. Eliminarlo
-   lo desvincula de Meli+, pero no lo borra de los medios guardados en la cuenta.
-7. Header sticky sin la barra ficticia Android: amarillo en la landing y
-   violeta en Details y selección, para que encabece el bloque al que pertenece. Violeta Meli+ en la suscripción; CTA negro en la invitación y azul
-   en las acciones de guardado. Reutilizar fuentes, tarjeta y assets originales.
+Ordenadas por impacto sobre el objetivo del board —bajar las cancelaciones
+involuntarias por overdue— y no por esfuerzo.
+
+**1. El principal nunca queda en riesgo.** La exploración original resuelve
+"agregar un alternativo" y "cambiar el principal" en la misma pantalla: se
+titula "Seleccionar medio de pago", encabeza "Medio de Pago" y en ningún lugar
+dice "alternativo". Acá la pantalla se llama "Medio de pago alternativo", el
+encabezado lo repite y se aclara que el principal no cambia; el principal
+aparece en la lista, marcado y no elegible. Va primero porque un error acá le
+cambia a la persona con qué se le cobra.
+
+**2. Nombrar lo que está en juego.** El copy explicaba el mecanismo —"lo
+usaremos si no podemos cobrar"— y nunca la consecuencia. Contra un KPI que
+trata de cancelaciones, la invitación ahora dice que si falla el cobro y no hay
+alternativo la suscripción se cancela y se pierden los beneficios. Una vez, sin
+alarmismo, y sin presentar la ausencia de respaldo como un perfil incompleto.
+
+**3. Contexto de cobro.** Monto y fecha del próximo cobro en la card de
+suscripción. Sin ellos, "agregá un respaldo" es una afirmación sin evidencia:
+con ellos, el riesgo tiene precio y calendario.
+
+**4. Estado de protección.** Medios de pago abre contestando si la suscripción
+tiene respaldo o no, que es la pregunta que la sección existe para responder.
+Reemplaza a una explicación que decía lo mismo más abajo.
+
+**5. Estado de cobro fallido.** `/details?cobro=fallido` es la pantalla a la que
+llega alguien desde el aviso de cobro rechazado. El prototipo asumía que todo
+estaba bien; el objetivo trata de cuando no lo está.
+
+**6. Confirmar en vez de aplicar al toque.** La original aplica el alternativo
+al tocar una fila y vuelve, sin confirmación ni feedback. Acá se elige con
+radios y se confirma con una acción explícita, y el resultado se anuncia en un
+toast persistente y descartable. Enviar sin selección enfoca la primera opción.
+
+**7. Explicar antes de elegir, no detrás de un tooltip.** En touch un tooltip no
+se alcanza, y esa frase es lo que vuelve comprensible la feature. Vive en texto
+permanente en la invitación y otra vez en la pantalla de selección.
+
+**8. La invitación se puede cerrar sin perder el acceso.** Cerrarla no esconde
+la entrada persistente de Medios de pago. El aviso de cobro fallido también se
+cierra, porque el dato del reintento queda en la card.
+
+**9. Gestión acotada.** Cambiar y eliminar solo el alternativo. El diálogo de
+eliminación dice qué pasa —deja de usarse como respaldo, sigue guardado en la
+cuenta, el principal no cambia— y el botón nombra la acción en vez de contestar
+"sí". Cambiar o eliminar el principal queda fuera de alcance.
+
+**10. Jerarquía de la pantalla.** Es configuración, no venta: la card de
+suscripción arranca colapsada con lo esencial —qué plan, que está activo, cuánto
+y cuándo se cobra— y el contenido queda detrás de "Ver qué incluye". Eso subió
+Medios de pago de 1261 a 771 px en 375×812, arriba del fold.
+
+**11. Identidad.** Header sticky sin la barra ficticia Android: amarillo en la
+landing, violeta en Details y selección, para que encabece el bloque al que
+pertenece. Violeta Meli+ en la suscripción, CTA negro en la invitación y azul en
+las acciones de guardado. Fuentes, tarjeta, glifos y assets son los originales.
 
 Para representar el escenario vigente, la fecha ficticia de Visa cambia de
 10/24 a 10/28. El vencimiento queda como variante futura, no como motivo del
-caso principal. No se presenta la ausencia de respaldo como perfil incompleto.
+caso principal.
 
 ## Textos principales
 
 - Invitación: “Agregá un medio de pago alternativo”.
-- Explicación: “Lo usaremos si no podemos cobrar tu suscripción con el medio principal.”
+- Lo que está en juego: “Si falla el cobro con tu medio principal y no tenés un
+  alternativo, tu suscripción se cancela y perdés los beneficios.”
+- Explicación: “Lo usaremos solo si no podemos cobrar tu suscripción con el
+  medio principal.”
+- Estado de protección: “Tu suscripción no tiene respaldo. Si falla el cobro, se
+  cancela.” / “Tu suscripción tiene respaldo. Si falla el cobro con el
+  principal, lo intentamos con el alternativo.”
+- Cobro fallido: “No pudimos cobrar tu suscripción” + “Intentamos cobrar $17,90
+  con tu Visa terminada en 8743 el 15 de septiembre. Reintentamos el 18 de
+  septiembre. Agregá un medio de pago alternativo para que lo intentemos ahí.”
+- Cobro: “Suscripción mensual” · “Próximo cobro: 15 de septiembre” /
+  “Reintentamos el cobro el 18 de septiembre”.
 - Selección: “Elegí un medio de pago alternativo”.
 - Aclaración: “Tu medio principal no cambia.”
 - Guardado: “Agregar como alternativo” / “Guardar alternativo”.
 - Feedback: “Agregaste un medio de pago alternativo.”
 - Edición: “Cambiaste el medio de pago alternativo.”
 - Eliminación: “Eliminaste el medio de pago alternativo de esta suscripción.”
+- Código de servicio: “Es el código que te piden Disney+ y Star+ para activar tu
+  beneficio. Lo usás una sola vez, al crear tu cuenta o al vincular una que ya
+  tengas.”
+- Fuera de alcance, por acción: “<Acción> no forma parte de este prototipo.”
 
 ## Interacción y accesibilidad
 
@@ -74,15 +132,17 @@ caso principal. No se presenta la ausencia de respaldo como perfil incompleto.
   el contenido durante la salida. Sin soporte, el cambio de display es inmediato.
   Sin autocierre ni librerías; el control saliente deja de recibir foco y el
   cierre manual devuelve el foco a Medios de pago sin desplazar la página.
-- Las demás acciones de pagos no tienen animaciones ni desplazamientos suaves.
+- Volver a Medios de pago después de guardar o eliminar se desplaza suave;
+  con movimiento reducido, instantáneo. El resto de las acciones no anima.
 - La tarjeta Total incorpora el carrusel de servicios del nodo `40000024:263`:
   Disney+, Deezer, Max y Paramount+, en ese orden. Desplazamiento horizontal
   nativo en touch/trackpad, arrastre con mouse y control de avance con teclado.
-- El control de dots ocupa 44 × 44 px: clic, Enter o Espacio avanzan; las
-  flechas recorren las imágenes y Home/End van a los extremos. Los cuatro dots
-  son indicadores dentro de ese control, no cuatro blancos táctiles diminutos.
-- El gap visual del carrusel de servicios es 4 px; el del carrusel de planes
-  sigue en 8 px. Mover contenido dentro de Total no cambia el plan.
+- El control de dots del carrusel de servicios ocupa 44 × 44 px: clic, Enter o
+  Espacio avanzan; las flechas recorren las imágenes y Home/End van a los
+  extremos. Los cuatro dots son indicadores dentro de ese control, no cuatro
+  blancos táctiles diminutos. Mover contenido dentro de Total no cambia el plan.
+- En la landing, los planes se eligen con un control segmentado que lleva sus
+  nombres, no con puntos anónimos.
 - Una demostración breve revela parte de la próxima imagen y vuelve al inicio,
   sin cambiar la selección. Se ejecuta una sola vez por carga del documento,
   cuando el carrusel activo entra en pantalla. Se cancela ante interacción,
