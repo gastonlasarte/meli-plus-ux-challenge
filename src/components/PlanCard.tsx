@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import type { Plan } from "../data/plans";
 import { Button } from "./Button";
 import { Icon } from "./Icon";
@@ -16,24 +16,37 @@ export function BenefitsList({ benefits }: { benefits: Plan["benefits"] }) {
   </ul>;
 }
 
-export function PlanCard({ plan, subscribed = false, active = true, onChoose }: {
-  plan: Plan; subscribed?: boolean; active?: boolean; onChoose?: () => void;
+export function PlanCard({ plan, subscribed = false, active = true, onChoose, collapsible = false }: {
+  plan: Plan; subscribed?: boolean; active?: boolean; onChoose?: () => void; collapsible?: boolean;
 }) {
   const titleId = useId();
+  const mediaId = useId();
+  const benefitsId = useId();
+  const aboutId = useId();
+  const [expanded, setExpanded] = useState(false);
+  // En una pantalla de gestión lo esencial es qué plan, que está activo y cuánto
+  // cuesta; el contenido del plan queda a un toque de distancia.
+  const hidden = collapsible && !expanded;
   return <article className={`plan-card plan-card--${plan.id}${subscribed ? " plan-card--subscribed" : ""}`} aria-labelledby={titleId}>
-    {plan.id === "total" ? <ServiceCarousel enabled={active} /> : <div className="plan-card__cover">
-      <img src={`/assets/figma/${plan.cover}`} alt="" width="320" height="236" draggable="false" />
-    </div>}
+    <div id={mediaId} hidden={hidden}>
+      {plan.id === "total" ? <ServiceCarousel enabled={active && !hidden} /> : <div className="plan-card__cover">
+        <img src={`/assets/figma/${plan.cover}`} alt="" width="320" height="236" draggable="false" />
+      </div>}
+    </div>
     <div className="plan-card__header">
       <div className="subscription-title"><h3 id={titleId}>{plan.name}</h3>{subscribed && <span className="subscription-badge">Activa</span>}</div>
-      <p>{plan.description}</p>
+      <p id={aboutId} hidden={hidden}>{plan.description}</p>
     </div>
-    <BenefitsList benefits={plan.benefits} />
+    <div id={benefitsId} hidden={hidden}><BenefitsList benefits={plan.benefits} /></div>
     <footer className="plan-card__footer">
       <p className="price"><strong>{plan.price}</strong><span>Por mes</span></p>
       {subscribed
         ? <Button variant="text" className="subscription-cancel" disabled>Cancelar suscripción</Button>
         : <Button className="choose-plan" disabled={!onChoose} onClick={onChoose}>Elegir plan</Button>}
     </footer>
+    {collapsible && <button className="plan-card__toggle" type="button" aria-expanded={expanded}
+      aria-controls={`${mediaId} ${aboutId} ${benefitsId}`} onClick={() => setExpanded(!expanded)}>
+      {expanded ? "Ver menos" : "Ver más"}
+    </button>}
   </article>;
 }

@@ -10,6 +10,7 @@ import { initialPayment, methods, removeAlternate, saveAlternate, subscription }
 import type { MethodId } from "./model";
 
 const explanation = "Lo usaremos solo si no podemos cobrar tu suscripción con el medio principal.";
+const outOfScope = (what: string) => `${what} no forma parte de este prototipo.`;
 const stake = "Si falla el cobro con tu medio principal y no tenés un alternativo, tu suscripción se cancela y perdés los beneficios.";
 const currentPlan = {
   ...plans[0],
@@ -196,7 +197,7 @@ export function PaymentFlow() {
                   <h2 id="invitation-title">Agregá un medio de pago alternativo</h2>
                   <p>{stake}</p>
                   <Button variant="dark" id="banner-add-alternate" className="payment-primary" type="button" onClick={openSelector}>Agregar como alternativo</Button>
-                  <p className="invitation-support">O contactá a <button type="button" disabled>soporte</button>.</p>
+                  <p className="invitation-support">O contactá a <button type="button" onClick={() => setNotice(outOfScope("Contactar a soporte"))}>soporte</button>.</p>
                 </aside>)}
             <div className="subscription-content">
               <h2 id="subscription-heading">Tu suscripción actual</h2>
@@ -204,7 +205,7 @@ export function PaymentFlow() {
                 <div><span>Suscripción mensual</span><strong>{subscription.amount}</strong></div>
                 <p>{chargeFailed ? `Reintentamos el cobro el ${subscription.retryCharge}` : `Próximo cobro: ${subscription.nextCharge}`}</p>
               </div>
-              <PlanCard plan={currentPlan} subscribed />
+              <PlanCard plan={currentPlan} subscribed collapsible />
               <div className="service-code">
                 <div><div className="service-code__value"><strong>314159265358</strong><button type="button" aria-label="Copiar código de servicio" onClick={async () => { try { await navigator.clipboard.writeText("314159265358"); setNotice("Copiaste el código de servicio."); } catch { setNotice("No pudimos copiar el código. Seleccionalo para copiarlo."); } }}><Icon name="copy" size={20} /></button></div><p>Código de servicio Disney+ / Star+</p></div>
                 <button className="service-help" type="button" disabled aria-label="Ayuda con el código de servicio"><Icon name="help" size={24} /></button>
@@ -230,7 +231,7 @@ export function PaymentFlow() {
             {helpOpen && !alternate && <div className="alternate-help" id="alternate-help"><p>{explanation}</p><button type="button" onClick={() => { setHelpOpen(false); helpButton.current?.focus(); }}>Entendido</button></div>}
           </section>
         </main>
-        <footer className="subscription-footer"><p>Podés <button type="button" disabled>cancelar tu suscripción</button> en cualquier momento.</p><button type="button" disabled>Términos y condiciones</button></footer>
+        <footer className="subscription-footer"><p>Podés <button type="button" onClick={() => setNotice(outOfScope("Cancelar la suscripción"))}>cancelar tu suscripción</button> en cualquier momento.</p><button type="button" onClick={() => setNotice(outOfScope("Los términos y condiciones"))}>Términos y condiciones</button></footer>
       </>}
       <Toast message={notice} onDismiss={() => {
         paymentsHeading.current?.focus({ preventScroll: true });

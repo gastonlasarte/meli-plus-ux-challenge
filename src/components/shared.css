@@ -60,6 +60,7 @@
 .plan-card--subscribed .plan-card__benefits { padding: var(--space-4); border: 0; }
 .plan-card--subscribed .plan-card__benefits li { min-height: 32px; }
 .plan-card--subscribed .plan-card__footer { border-top: 1px solid var(--border-over-dark); }
+.plan-card__toggle { width: 100%; min-height: var(--target-size); padding: var(--space-3) var(--space-4); border: 0; border-top: 1px solid var(--border-over-dark); background: transparent; color: var(--text-over-dark); font-size: var(--text-body); font-weight: 600; }
 .subscription-cancel { background: transparent; border: 0; padding: 0; color: var(--text-over-dark); font-size: var(--text-body); line-height: 1.3; font-weight: 600; }
 .icon { flex: none; }
 /* Los indicadores son un punto de CSS, no dos archivos por estado. */
