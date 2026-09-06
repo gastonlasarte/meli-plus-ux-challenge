@@ -35,6 +35,22 @@ function PlanCarousel({ onChoose }: { onChoose: () => void }) {
 
   return (
     <div className="carousel" role="region" aria-roledescription="carrusel" aria-label="Planes Meli+">
+      {/* Los dos planes se nombran antes de cualquier interacción. */}
+      <div className="plan-tabs" role="group" aria-label="Elegir plan">
+        {plans.map((plan, index) => (
+          <button
+            key={plan.id}
+            type="button"
+            ref={(element) => { indicators.current[index] = element; }}
+            aria-controls={`slide-${plan.id}`}
+            aria-pressed={active === index}
+            onClick={() => select(index)}
+            onKeyDown={(event) => onKeyDown(event, index)}
+          >
+            {plan.short}
+          </button>
+        ))}
+      </div>
       <div className="carousel__rail" ref={rail}>
         {plans.map((plan, index) => (
           <div
@@ -52,22 +68,7 @@ function PlanCarousel({ onChoose }: { onChoose: () => void }) {
           </div>
         ))}
       </div>
-      <div className="carousel__indicators" aria-label="Seleccionar plan">
-        {plans.map((plan, index) => (
-          <button
-            key={plan.id}
-            type="button"
-            ref={(element) => { indicators.current[index] = element; }}
-            aria-label={`Ver ${plan.name}`}
-            aria-controls={`slide-${plan.id}`}
-            aria-pressed={active === index}
-            onClick={() => select(index)}
-            onKeyDown={(event) => onKeyDown(event, index)}
-          >
-            <span className="dot" data-active={active === index} />
-          </button>
-        ))}
-      </div>
+
       <p className="sr-only" role="status" aria-live="polite">{changed ? plans[active].name : ""}</p>
     </div>
   );
