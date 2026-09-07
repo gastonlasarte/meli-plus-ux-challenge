@@ -15,6 +15,8 @@ fechas son datos de demostración.
 ## Cómo correrlo
 
 ```bash
+git clone https://github.com/gastonlasarte/meli-plus-ux-challenge.git
+cd meli-plus-ux-challenge
 npm install
 npm run dev
 ```
